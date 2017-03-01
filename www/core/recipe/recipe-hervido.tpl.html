@@ -1,0 +1,180 @@
+<ion-view title="{{recipe.NAME}}">
+<ion-content class="has-header">
+<div class="list">
+    <div class="item item-divider">Antes del Hervor</div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+               <label title="La densidad medida antes de enviar a hervor" for="ogBeforeBoil">Densidad</label>
+            </div>
+            <div class="col">
+            	<span class="form-control input-sm gt-calculated" id="ogBeforeBoil" ng-bind="calculateSgBeforeBoil(recipe.BOIL_TIME, recipe.PercentEvap)"/>
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+               <label for="beforeBoil">Litros antes de hervor</label>
+            </div>
+            <div class="col">
+            	 <span class="form-control input-sm gt-calculated"
+                                            id="beforeBoil"
+                                            ng-bind="round1(BrewCalc.calculateBoilSize(recipe.BATCH_SIZE, recipe.TrubChillerLosses, recipe.BOIL_TIME, recipe.PercentEvap, recipe.TopUpWater)) + ' Lts'" />
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+                <label title="Densidad aumentada por fermentables durante el hervor" for="sgDuringBoil">
+                    Fermentables Agregados
+                </label>
+            </div>
+            <div class="col">
+             <span class="form-control input-sm gt-calculated"
+                                            id="sgDuringBoil"
+                                            ng-bind="calculateSgDuringBoil(recipe.BOIL_TIME, recipe.PercentEvap)">
+                                        </span>
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+                    <label title="pH medido antes de comenzar el hervor">
+                                            pH
+                                        </label>
+            </div>
+            <div class="col">
+               <input type="number" class="form-control input-sm gt-preset" ng-model="recipe.phPreBoil" step="0.01" />
+            </div>
+       </div>
+    </div>
+    <div class="item item-divider">Hervor</div>
+
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+                    <label for="BOIL_TIME_2">Tiempo Hervor</label>
+                                         
+            </div>
+            <div class="col">
+              <input type="number" class="form-control input-sm" id="BOIL_TIME_2" ng-model="recipe.BOIL_TIME" />
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+                  <label title="% por hora" for="percentEvap">Evaporacion %</label>
+            </div>
+            <div class="col">
+              <input type="number" class="form-control input-sm gt-preset" id="percentEvap" step="0.1" ng-model="recipe.PercentEvap" />
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+                  <label title="Tiempo en que se tarda en llegar a hervor">Tiempo pre hervor</label>
+            </div>
+            <div class="col">
+              <input type="number" class="form-control input-sm gt-preset" ng-model="recipe.preBoilTime" />
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+                    <label title="Lts totales">Evaporacion Lts</label>
+            </div>
+            <div class="col">
+              <span class="form-control input-sm gt-calculated">
+                                            {{round1(BrewCalc.calculateBoilSize(recipe.BATCH_SIZE, recipe.TrubChillerLosses, recipe.BOIL_TIME, recipe.PercentEvap, recipe.TopUpWater)-(recipe.BATCH_SIZE/0.96+recipe.TrubChillerLosses))}} Lts
+                                            ({{round1((BrewCalc.calculateBoilSize(recipe.BATCH_SIZE, recipe.TrubChillerLosses, recipe.BOIL_TIME, recipe.PercentEvap, recipe.TopUpWater)-(recipe.BATCH_SIZE/0.96+recipe.TrubChillerLosses))*60/recipe.BOIL_TIME)}} Lts/h)
+                                        </span>
+            </div>
+       </div>
+    </div>
+    <div class="item item-divider">Luego del Hervor</div>
+
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+               <label for="OG">Densidad (OG)</label>
+            </div>
+            <div class="col">
+             <span class="form-control input-sm gt-calculated" id="OG" ng-bind="recipe.OG" />
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+              <label for="afterBoil">Volumen</label>
+            </div>
+            <div class="col">
+             
+                                        <span class="form-control input-sm gt-calculated" id="afterBoil" ng-bind="round1(recipe.BATCH_SIZE/0.96+recipe.TrubChillerLosses) + ' Lts'" />
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+               <label for="trubChillerLosses">Perdida Trub y Enfriador</label>
+            </div>
+            <div class="col">
+             <input type="number" class="form-control input-sm gt-preset" id="trubChillerLosses" step="0.1" ng-model="recipe.TrubChillerLosses" />
+            </div>
+       </div>
+    </div>
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+               <label for="finalVolume">Volumen Final</label>
+            </div>
+            <div class="col">
+              <span class="form-control input-sm gt-calculated" id="finalVolume" ng-bind="round1(recipe.BATCH_SIZE/0.96) + ' Lts'" />
+            </div>
+       </div>
+    </div>
+	<div class="item item-divider">Luego de Enfriado</div>
+    
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+               <label title="Litros en el fermentador" for="afterCooling">Luego Enfriado (4%)</label>
+            </div>
+            <div class="col">
+              <span style="font-weight: bold;" class="form-control input-sm gt-calculated" id="afterCooling" ng-bind="recipe.BATCH_SIZE + ' Lts'" />|
+           </div>
+       </div>
+    </div> 
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+                <label title="pH de mosto a fermentar">pH</label>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control input-sm gt-preset" ng-model="recipe.phPostBoil" step="0.01"/>
+           </div>
+       </div>
+    </div>      
+    <div class="item">
+	  <div class="row">
+            <div class="col">
+               <label title="Tiempo de enfriado">Tiempo enfriado</label>
+            </div>
+            <div class="col">
+                 <input type="number" class="form-control input-sm gt-preset" ng-model="recipe.coolingTime"/>
+           </div>
+       </div>
+    </div>           
+                 
+                                      
+                                 
+                          
+   </ion-content>
+</ion-view>

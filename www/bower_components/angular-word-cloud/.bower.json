@@ -1,0 +1,28 @@
+{
+  "name": "angular-word-cloud",
+  "version": "0.1.4",
+  "main": "./build/angular-word-cloud.min.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "angular": "1.2.9"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.9",
+    "angular-scenario": "1.2.9"
+  },
+  "homepage": "https://github.com/lautarobock/angular-word-cloud",
+  "_release": "0.1.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.4",
+    "commit": "ac427e2bc02fecceb3ecba3f9f981efdc5b57d17"
+  },
+  "_source": "https://github.com/lautarobock/angular-word-cloud.git",
+  "_target": "~0.1.4",
+  "_originalSource": "https://github.com/lautarobock/angular-word-cloud.git",
+  "_direct": true
+}

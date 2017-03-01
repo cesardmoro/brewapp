@@ -1,0 +1,68 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>Lupulos</strong></div>
+    <div style="margin: 2em 2em 0;" class="alert alert-info" ng-hide="recipe.HOPS.HOP.length != 0">
+        Aun no tiene ningun lupulo en la receta
+    </div>
+    <table class="table table-condensed table-hover" ng-show="recipe.HOPS.HOP.length != 0" style="margin-top: 1em;">
+      <thead>
+        <tr>
+          <th style="width:26%">Lupulo</th>
+          <th style="width:8%; min-width: 65px;">Alpha</th>
+          <th style="width:12%">Modo</th>
+          <th style="width:10%; min-width: 60px;">Grs</th>
+          <th style="width:8%" class="hidden-xs">g/L</th>
+          <th style="width:8%" class="hidden-xs">%</th>
+          <th style="width:12%">Uso</th>
+          <th style="width:8%; min-width: 70px;">Tiempo</th>
+          <th style="width:6%" class="hidden-xs">IBU</th>
+          <th style="width:2%"></th>
+          <th style="width:2%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="hop in recipe.HOPS.HOP">
+            <td>
+                <input typeahead-on-select="onChangeHop(hop)" class="form-control input-sm" type="text" ng-model="hop.NAME" typeahead="hop.name for hop in hops | filter:$viewValue" placeholder="Buscar Lupulos"/>
+            </td>
+            <td><input ng-change="changeHop()" class="form-control input-sm" type="number" step="0.1" ng-model="hop.ALPHA" placeholder="%AA"/></td>
+            <td>
+                <select ng-change="changeHop()" class="form-control input-sm" ng-model="hop.FORM">
+                    <option ng-repeat="form in hopForms">{{form.name}}</option>
+                </select>
+            </td>
+            <td ng-controller="RecipeDetailHopAmountCtrl">
+                <input ng-change="hop.AMOUNT=amountGrs/1000;changeHop()" class="form-control input-sm" type="number" step="1" ng-model="amountGrs" placeholder="Kg"/>
+            </td>
+            <td class="hidden-xs"><span class="form-control input-sm gt-calculated">{{hopGramsPerLiter(hop,recipe.BATCH_SIZE)|number:2}}</span></td>
+            <td class="hidden-xs"><span class="form-control input-sm gt-calculated">{{hopPercentage(hop,recipe.totalHop)|number:2}}</span></td>
+            <td>
+                <select ng-change="changeHop()" class="form-control input-sm" ng-model="hop.USE">
+                    <option ng-repeat="use in hopUses">{{use.name}}</option>
+                </select>
+            </td>
+            <td><select class="form-control input-sm" ng-change="changeHop()" ng-model="hop.TIME" ng-options="a for a in [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,90,100,110,120]"></select></td>
+            <td class="hidden-xs"><span class="form-control input-sm gt-calculated">{{hopIBU(hop)|number:2}}</span></td>
+            <td>
+                <button type="button" class="close" aria-hidden="true" ng-click="removeHop(hop)">&times;</button>
+            </td>
+            <td>
+                <a href="" ng-click="copyHop(hop)"><img src="images/copy.png"/></a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><strong class="pull-right">Total:</strong></td>
+            <td>{{recipe.totalHop*1000 | number:0}} Grs</td>
+            <td class="hidden-xs" colspan="4"><strong class="pull-right">IBUs:</strong></td>
+            <td class="visible-xs" colspan="1"><strong class="pull-right">IBUs:</strong></td>
+            <td>{{recipe.CALCIBU|number:2}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-body">
+        <button type="button" class="button button-positive pull-right" ng-click="addHop()">
+            <span class="glyphicon glyphicon-plus"></span> Agregar
+        </button>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<ul class="nav nav-tabs" style="margin-bottom: -0.1em;">
+    <li>
+        <a href="/#/dashboard">Inicio</a>
+    </li>
+    <li class="active">
+        <a><b>Mis recetas ({{stats.owns}})</b></a>
+    </li>
+    <li>
+        <a href="/#/collaborated">Colaboraciones ({{stats.collaborations}})</a>
+    </li>
+    <li>
+        <a href="/#/favorites">Favoritas ({{user.favorites.length}})</a>
+    </li>
+    <li>
+        <a href="/#/public">Publicadas ({{stats.publics}})</a>
+    </li>
+</ul>
+<div class="panel panel-default" ng-show="recipes.length!=0" ng-cloak>
+    <div class="panel-body" >
+        <div class="col-md-12" >
+            <a type="button" class="btn btn-primary pull-right" href="#/recipe/new">
+                <span class="glyphicon glyphicon-plus"></span> Nueva receta
+            </a>
+        </div>
+    </div>
+    <div class="panel-body" >
+        <word-cloud words="tags" type="list" ng-click="filterByTag">
+            <button ng-class="word.color" class="btn btn-xs" style="margin: 2px 0" ng-click="clickFn(word)">
+                {{ word.word }} ({{word.count}})
+            </button>
+        </word-cloud>
+    </div>
+    <listview ng-if="user"
+          listview-data="recipes"
+          listview-sort="sort"
+          listview-config="config"
+          listview-filter="filterData"
+          listview-header="headers"></listview>
+
+    <div class="panel-body">
+        <div class="col-md-12" >
+            <a type="button" class="btn btn-primary pull-right" href="#/recipe/new">
+                <span class="glyphicon glyphicon-plus"></span> Nueva receta
+            </a>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default" ng-hide="recipes.length!=0" ng-cloak>
+    <div class="panel-body">
+      <div class="alert alert-info">
+            Aun no tiene recetas creadas
+            <a href="#/recipe/new" class="alert-link">Crea tu primera receta desde aca!</a>
+      </div>
+      <a type="button" class="btn btn-primary pull-right" href="#/recipe/new">
+        <span class="glyphicon glyphicon-plus"></span> Nueva receta
+      </a>
+    </div>
+</div>

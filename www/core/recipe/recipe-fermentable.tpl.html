@@ -1,0 +1,28 @@
+<ion-view title="{{recipe.NAME}}">
+<ion-content class="has-header">
+<div class="list" >
+	<div class="item" ng-repeat="fermentable in recipe.FERMENTABLES.FERMENTABLE">
+	    <div class="col">
+	        <span>{{fermentable.NAME}}</span> 
+	    </div>
+		<div class="row">
+
+		    <div class="col">
+		    	<div  ng-disabled="recipe.GrainCalcMethod==0" type="number" step="0.1" >Cantidad: {{fermentable.AMOUNT}} KGs</div>
+			</div>
+		    <div class="col">
+	        Uso: {{fermentable.USE}}
+	    	</div>
+	    </div>
+		<div class="row">
+		    <div class="col">
+		    	<div  type="number" step="0.001" >Extracto: {{fermentable.POTENTIAL}}</div>
+		    </div>
+		    <div class="col">
+		    	<div  type="number" step="0.1" >COLOR: {{fermentable.COLOR}}</div>
+		    </div>
+		</div>
+    </div>
+</div>
+   </ion-content>
+</ion-view>

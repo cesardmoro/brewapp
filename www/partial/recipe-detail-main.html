@@ -1,0 +1,109 @@
+<ng-include   src="'partial/recipe-detail-general.html'"></ng-include>
+<ng-include     src="'partial/recipe-detail-fermentables.html'"></ng-include>
+<ng-include   src="'partial/recipe-detail-hops.html'"></ng-include>
+<ng-include   src="'partial/recipe-detail-yeast.html'"></ng-include>
+<ng-include   src="'partial/recipe-detail-miscs.html'"></ng-include>
+<ng-include   src="'partial/recipe-detail-other.html'"></ng-include>
+<div style="overflow: hidden;margin-bottom: 1em;">
+    <div class="pull-left">
+        <a href="#/recipe/" type="button" class="btn btn-link glyphicon glyphicon-chevron-left"> Volver al listado</a>
+    </div>
+    <div class="pull-right">
+        <a href="#/recipe/" type="button" class="button button-positive">Cancelar</a>
+        <button ng-disable="saving" ng-click="save()" type="button" class="btn btn-primary">Guardar</button>
+    </div>
+</div>
+<div ng-repeat="notification in notifications">
+    <div class="alert alert-{{notification.type}} alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{notification.title}}</strong>
+        {{notification.text}}
+    </div>
+</div>
+<ng-include src="'partial/recipe-comments.html'"></ng-include>
+<ng-include src="'partial/recipe-detail-import.html'"></ng-include>
+
+<div ng-show="false">
+
+    <div class="">
+        <div class=""><strong>Opciones</strong></div>
+        <div class="" >
+            <div style="margin: 0">
+                <strong title="Ingredientes: Al modificar los litros ajusta la OG y no modifica la cantidad de ingredientes. OG: Al modificar los litros ajusta los ingredientes y no modifica la OG" >
+                    Fijar OG:
+                </strong>
+                <select class="form-control input-sm" ng-model="recipe.fixIngredients">
+                    <option ng-selected="recipe.fixIngredients=='1'" value="1">
+                        No
+                    </option>
+                    <option ng-selected="!recipe.fixIngredients || recipe.fixIngredients=='0'" value="0">
+                        Si
+                    </option>
+                </select>
+            </div>
+            <div style="margin: 0">
+                <strong title="Estado de la receta" >
+                    Estado del proceso:
+                </strong>
+                <select class="form-control input-sm" ng-model="recipe.state">
+                    <option ng-repeat="state in states" value="{{state.value}}">
+                        {{state.name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <ng-include src="'partial/recipe-detail-indicators.html'"></ng-include>
+    <ng-include src="'partial/recipe-detail-operations.html'"></ng-include>
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Nazi Mode</strong></div>
+        <div class="panel-body" >
+            <div>
+                Habilitado
+                <span ng-show="recipe.naziMode" class="glyphicon glyphicon-check"/>
+                <span ng-hide="recipe.naziMode" class="glyphicon glyphicon-unchecked"/>
+                <br/>
+                <button type="button" class="button button-positive" ng-model="recipe.naziMode" btn-checkbox>
+                    <span ng-hide="recipe.naziMode">
+                        Habilitar
+                    </span>
+                    <span ng-show="recipe.naziMode">
+                        Deshabilitar
+                    </span>
+                </button>
+            </div>
+            <br/>
+            <span ng-show="!hasStyleError && recipe.naziMode"
+                class="glyphicon glyphicon-ok-circle"
+                style="font-size: 30px;color: green;">
+            </span>
+            <div>
+                <strong ng-show="hasStyleError">Falta ajustar</strong>
+                <ul class="list-group">
+                    <li class="list-group-item " ng-repeat="(k,v) in error">
+                        <span class="text text-warning">{{v}}</span>
+                    </li>
+                </ul>
+            </div>
+            <div ng-init="isCollapsed=true">
+                <strong>
+                    <a href="" ng-click="isCollapsed = !isCollapsed">
+                        Estilos sugeridos
+                        <span ng-show="isCollapsed" class="glyphicon glyphicon-chevron-down"/>
+                        <span ng-hide="isCollapsed" class="glyphicon glyphicon-chevron-up"/>
+                    </a>
+                </strong>
+                <ul class="list-group" collapse="isCollapsed">
+                    <li class="list-group-item " ng-repeat="(k,v) in suggestedStyles">
+                        {{v}}
+                        <a href="" ng-click="recipe.STYLE.NAME = v">
+                            <span class="glyphicon glyphicon-upload"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <ng-include src="'partial/recipe-detail-social.html'"></ng-include>
+</div>

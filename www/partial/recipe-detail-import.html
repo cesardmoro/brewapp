@@ -1,0 +1,10 @@
+<a ng-click="import=true" class="btn btn-link" ng-hide="import">Importar receta desde BrewMate</a>
+<div class="panel panel-default" ng-show="import">
+    <div class="panel-heading">Importar receta desde BrewMate</div>
+    <div class="panel-body" ng-show="importEnabled">
+        <input onchange="angular.element(this).scope().handleFileSelect(this)" ng-model="file" class="form-control input-sm" type="file" id="file" name="files[]" />
+    </div>
+    <div class="panel-body" ng-hide="importEnabled">
+        The File APIs are not fully supported in this browser.    
+    </div>
+</div>

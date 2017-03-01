@@ -1,0 +1,27 @@
+<div class="row" id="SettingsTabCtrl" ng-controller="SettingsTabCtrl">
+    <div class="col-md-12" style="margin-bottom: -0.1em;">
+        <ul class="nav nav-tabs">
+            <li ng-class="{active:selectedTab === tab}" ng-repeat="tab in sortTabs">
+                <a style="cursor: pointer" ng-click="changeTab(tab)">{{tabs[tab].title}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-12">
+      <div ng-include="'partial/user/settings/user-settings-'+tabs[selectedTab].template+'.html'"></div>
+
+      <div style="overflow: hidden;margin-bottom: 1em;">
+          <div class="pull-right">
+              <a href="#/recipe/" type="button" class="button button-positive">Cancelar</a>
+              <button ng-click="save()" type="button" class="btn btn-primary">Guardar</button>
+          </div>
+      </div>
+      <div ng-repeat="notification in notifications">
+          <div class="alert alert-{{notification.type}} alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong>{{notification.title}}</strong>
+              {{notification.text}}
+          </div>
+      </div>
+    </div>
+</div>

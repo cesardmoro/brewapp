@@ -1,0 +1,26 @@
+<ion-view title="Timer">
+<ion-content class="has-header">
+
+    <div class="list">
+    	<div class="item item-divider">Alertas</div>
+			
+		  <label class="item item-input">
+		    <input type="text" ng-model="newAlert.name" required placeholder="Nombre (Ej: Macerado).">
+		  </label>
+		  <label class="item item-input">
+		    <input type="number" ng-model="newAlert.time" required placeholder="Tiempo en minutos(Ej: 10).">
+		  </label>
+			<div class="item item-button-right"> 
+			 Agregar alerta
+	    		<button class="button button-balanced ion-plus-circled" ng-click="add()"></button>
+	   		</div> 
+	   	<div class="item item-divider">Alertas Activas:</div>
+	   	<div class="item item-button-right" ng-repeat="alert in alerts">
+	   		{{alert.left}} - {{alert.name}}
+	   			
+	   			
+	   		<button class="button button-assertive ion-close-circled" ng-click="cancelNotification(alert)"></button>
+	   	</div>
+    </div>
+</ion-content>
+</ion-view>

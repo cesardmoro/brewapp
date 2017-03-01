@@ -1,0 +1,184 @@
+
+
+
+
+
+
+
+  		
+  
+	  		
+
+
+
+
+
+
+
+
+
+
+
+
+<html lang="es">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<link type="text/css" href="/hb/styles/jquery-ui-1.8.11.custom.css" rel="stylesheet" />
+<script type="text/javascript" src="/hb/javascript/jquery/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="/hb/javascript/jquery/jquery-ui-1.8.11.custom.min.js"></script>
+<script type="text/javascript" src="/hb/javascript/jquery/jquery.blockUI.js"></script>
+<!-- MODAL POPUP DIALOG -->
+<style>
+.ui-dialog {font-family:Arial,Helvetica,sans-serif;font-size:11px;-moz-user-select: none;-khtml-user-select: none;-webkit-user-select: none;user-select: none; padding: .1em;}
+.ui-dialog .ui-dialog-content {position: relative; border: 0;height: 100px; padding: .5em ; background: none; zoom: 1;}
+.ui-dialog .ui-dialog-content p {overflow: hidden; }
+.ui-dialog .ui-dialog-buttonpane {border-width:0;text-align: center;}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {float: none;}
+.ui-widget-overlay {background:#000000 url(images/ui-bg_flat_0_aaaaaa_40x100.png) repeat-x scroll 50%;opacity:0.6;}
+.ui-widget-header {color:#FFFFFF;font-weight:bold;background: #FF2222; padding: 0 0;}
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {background: #FF2222; border:0 none; font-family:Arial,Helvetica,sans-serif; font-size:11px; color: #FFFFFF; font-weight: bold;}
+</style>
+
+<script type="text/javascript">
+
+function blockFrame() {
+	$(function() {
+		$.blockUI({ message: null });
+	});
+}
+
+function unBlockFrame() {
+	$(function() {
+		$.unblockUI();
+	});
+}
+function validarMyA(formatoError, nroModulo, errorDesc, urlDestino, codRet) {
+	return validarMyA2(formatoError, nroModulo, errorDesc, urlDestino, 500, 130, codRet);
+}
+
+
+function validarMyA2(formatoError, nroModulo, errorDesc, urlDestino, width, height, codRet) {
+	if (formatoError!= "0") {
+		if (formatoError == "1") {
+			callBlockUI(nroModulo, errorDesc, urlDestino, height, width, codRet);
+		}
+		if (formatoError == "2") {
+			callMsgBox(nroModulo, errorDesc);
+		}
+		if (formatoError == "3") {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+function callMsgBox(nroModulo, errorDesc) {
+	location.href = "/hb/html/common/msgBox.jsp?nroModulo=" + nroModulo + "&mensaje=" + errorDesc;
+	return false;
+}
+
+
+function callBlockUI(nroModulo, errorDesc, urlDestino, height, width, codRet) {
+	$(function() {
+		
+		$.blockUI({ 
+			theme:     true,
+			 
+			title:    'ADVERTENCIA',
+			draggable: false,
+			
+			message:'<div class="blockUI blockMsg blockPage ui-dialog ui-widget ui-corner-all ui-widget-content" style="z-index: 1001; position: fixed; height: ' + height + 'px; width: ' + width + 'px; top: 25%; left: 20%;">	<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">ADVERTENCIA</div>		<div class="ui-widget-content ui-dialog-content">			<p style="overflow: hidden; font-weight: normal;"> ' + errorDesc + ' </p>		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">			<div class="ui-dialog-buttonset">				<button id="boton-aceptar" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" aria-disabled="false" role="button" type="button">					<span class="ui-button-text">Aceptar</span>				</button>			</div>		</div>	</div></div>',
+			
+			themedCSS: {position: 'absolute', height: height + "px", width: width + "px", top:'25%', left: "20%" }
+		});
+		
+		$('.ui-widget-content.ui-dialog-content').css("height", height - 10);
+		$('.ui-widget-content.ui-dialog-content').css("width", width - 10);
+
+		$('#boton-aceptar').click(function() {
+			$.unblockUI();
+			try{top.frame1.unBlockFrame();} catch(ex0) {}
+			try{top.frame2.rowOperaciones.unBlockFrame();} catch(ex1) {}
+			try{top.frame2.rowProductos.unBlockFrame();} catch(ex2) {}
+			try{top.frame2.rowWorkingArea.scrolling = "auto";} catch(ex3) {}
+			if(codRet == "2"){
+				if(urlDestino!='')
+					location.href = urlDestino;
+			}
+			return false;
+		});
+
+		try{top.frame1.blockFrame();} catch(ex0) {}
+		try{top.frame2.rowProductos.blockFrame();} catch(ex1) {}
+		try{top.frame2.rowOperaciones.blockFrame();} catch(ex2) {}
+		try{top.frame2.rowWorkingArea.scrolling = "no";} catch(ex3) {}
+	});
+}
+
+</script>
+<!--<![endif]-->
+</head>
+</html>
+
+
+
+
+<script>
+errorPageException="si";
+</script>
+
+
+
+<html lang="es">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<link rel="StyleSheet" href="/hb/styles2/HB_style.css" type="text/css" >
+<script type="text/javascript">
+function aceptar() {
+
+
+    location.href = "principal.jsp";
+    
+
+}
+</script>
+<title></title>
+</head>
+<body bgcolor="#e8e8e8" leftmargin="0" topmargin="0" bottommargin="0" rightmargin="0" onload="msjErrorPageFocus()"> 
+    <br><br><br>
+    <div>
+         <div id="mensaje" class="shadow">
+             <div class="head-msj" id="indiMsjErrorPage">
+                 <strong>Mensaje</strong>
+                 <a href="javascript:aceptar();"><img src="/hb/images2/btn-cerrar.jpg" alt="Cerrar" title="Cerrar"></a>
+             </div>
+             <div class="body-msj">
+                 <p>No es posible acceder a la información solicitada. Por favor, reintente más tarde.</p>
+             </div>
+         </div>
+    </div>
+
+<script type="text/javascript">
+var descExcepcion0 = 'Mensaje = "For input string: """';
+var descExcepcion1 = 'Tipo = "java.lang.NumberFormatException"';
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
+
+<script>
+function msjErrorPageFocus(){
+      if(document.getElementById('indiMsjErrorPage')==true)
+            document.getElementById('indiMsjErrorPage').focus();
+}
+</script>

@@ -1,0 +1,105 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>Levadura</strong></div>
+    <table class="table table-condensed table-hover" style="margin-top: 1em;margin-bottom: 2em;">
+      <thead>
+        <tr>
+          <th>Levadura</th>
+          <th style="width:8em">Cantidad (g)</th>
+          <th style="width:6em" title="Billones de celulas x gramo">Densidad</th>
+          <th style="width:10em" title="Gramos por cada sobre">Tamaño Sobre</th>
+          <th style="width:6em">Atenuacion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="yeast in recipe.YEASTS.YEAST">
+            <td>
+                <input typeahead-on-select="onChangeYeast(yeast)" class="form-control input-sm" type="text" ng-model="yeast.NAME" typeahead="yeast.name for yeast in yeasts | filter:$viewValue" placeholder="Buscar Levaduras"/>
+                <datalist id="yeastNames">
+            </td>
+            <td>
+                <input class="form-control input-sm" type="number" ng-model="yeast.AMOUNT"/></td>
+            </td>
+            <td>
+                <input class="form-control input-sm" type="number" ng-model="yeast.density"/></td>
+            </td>
+            <td>
+                <input class="form-control input-sm" type="number" ng-model="yeast.packageSize"/></td>
+            </td>
+            <td>
+                <input ng-change="changeYeast()" class="form-control input-sm" type="number" ng-model="yeast.ATTENUATION"/>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-body">
+        <ul class="list-group">
+            <li class="list-group-item" style="overflow: hidden;">
+                <div class="col-md-3">
+                    <strong>Taza de inoculacion:</strong>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control input-sm" ng-model="recipe.pitchRate">
+                        <option ng-selected="pr.value === recipe.pitchRate" ng-repeat="pr in pitchRates" value="{{pr.value}}">
+                            {{pr.name}}
+                        </option>
+                    </select>
+                </div>
+            </li>
+            <li class="list-group-item" style="overflow: hidden;">
+                <div class="col-md-3">
+                    <strong>Cantidad optima:</strong>
+                </div>
+                <div class="col-md-2">
+                    <span class="form-control input-sm gt-calculated ">
+                        {{-yeastNeed(recipe.BATCH_SIZE, recipe.OG, 0,totalDensity(), recipe.pitchRate)}} Gramos
+                    </span>
+                </div>
+            </li>
+            <li class="list-group-item" style="overflow: hidden;" ng-show="yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)<0">
+                <div class="col-md-3">
+                    <strong>Cantidad Faltante:</strong>
+                </div>
+                <div class="col-md-2">
+                    <span class="form-control input-sm gt-calculated">
+                        {{-yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)}} Gramos
+                    </span>
+                </div>
+                <div class="col-md-5">
+                    <span class="text-danger">
+                        Aun necesitas {{-yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)}} gramos para una correcta fermentacion!
+                    </span>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="button button-positive btn-sm" ng-click="fixYeast()">
+                        ajustar
+                    </button>
+                </div>
+            </li>
+            <li class="list-group-item" style="overflow: hidden;" ng-show="yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)>=0">
+                <div class="col-md-3">
+                    <strong>Cantidad Sobrante:</strong>
+                </div>
+                <div class="col-md-2">
+                    <span class="form-control input-sm gt-calculated">
+                        {{yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)}} Gramos
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    <span class="text-success">
+                        Ya tienes levadura suficiente para una correcta fermentacion!
+                    </span>
+                </div>
+            </li>
+            <li class="list-group-item" style="overflow: hidden;">
+                <div class="col-md-3">
+                    <strong>Cantidad de sobres ({{recipe.YEASTS.YEAST[0].packageSize}} gramos):</strong>
+                </div>
+                <div class="col-md-2">
+                    <span class="form-control input-sm gt-calculated ">
+                        {{totalYeast() / recipe.YEASTS.YEAST[0].packageSize | numberCeil}}
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

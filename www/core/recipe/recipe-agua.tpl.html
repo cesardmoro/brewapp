@@ -1,0 +1,272 @@
+<ion-view title="{{recipe.NAME}}">
+<ion-content class="has-header">
+<div class="list">
+	<div class="item item-divider">Agua</div>
+
+	<div class="item">
+		<div class="row">
+			<div class="col">
+				Litros a tratar (L): 
+			</div>
+			<div class="col"><input type="text" ng-change="onChange()" name="agua" ng-model="recipe.water.liters"/></div>
+		</div>
+	</div>
+	<div class="item item-divider">Fuente y Objetivo</div>
+	
+	<label class="item item-input item-select">
+	<div class="row">
+		<div class="col">
+	    <div class="input-label">
+	      Agua a utilizar
+	    </div>
+		<select class="form-control input-sm"  ng-change="updateSource()" ng-model="recipe.water.selectedSource">
+		    <option ng-repeat="report in reports" ng-selected="report._id==recipe.water.selectedSource" value="{{report._id}}">{{report.name}}</option>
+		</select>
+		</div> 
+	</div>
+    </label>
+
+    <div class="item">
+    	<table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th ng-repeat="ion in ions" ng-hide="$last">{{ion.txt}}<sub>{{ion.sub}}</sub><sup>{{ion.sup}}</sup></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td ng-repeat="ion in ions" ng-hide="$last">
+                        <span ng-bind="getReport(recipe.water.selectedSource)[ion.type][ion.wr]" class="form-control input-sm "/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <label class="item item-input item-select">
+	<div class="row">
+		<div class="col">
+	    <div class="input-label">
+	      Agua Objetivo
+	    </div>
+		<select ng-change="updateTarget()" class="form-control input-sm" ng-model="recipe.water.selectedTarget">
+            <option ng-repeat="report in reports" ng-selected="report._id==recipe.water.selectedTarget" value="{{report._id}}">{{report.name}}</option>
+        </select>
+		</div> 
+	</div>
+
+    </label>
+    <div class="item">
+    	<table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th ng-repeat="ion in ions" ng-hide="$last">{{ion.txt}}<sub>{{ion.sub}}</sub><sup>{{ion.sup}}</sup></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td ng-repeat="ion in ions" ng-hide="$last">
+                        <span ng-bind="getReport(recipe.water.selectedTarget)[ion.type][ion.wr]" class="form-control input-sm "/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+	<div class="item item-divider">Inoes (ppm or mg/L)</div>
+
+    <div class="item">
+		<div class="row">
+			<div class="col">
+				 Fuente de agua:
+			</div>
+		</div>
+    	<table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th ng-repeat="ion in ions">{{ion.txt}}<sub>{{ion.sub}}</sub><sup>{{ion.sup}}</sup></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                   <td ng-repeat="ion in ions">
+                            <input type="number" step="1" class="form-control input-sm"
+                                    ng-model="recipe.water.source[ion.key]"
+                                    ng-change="onChange()" />
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="item">
+		<div class="row">
+			<div class="col">
+				 Objetivo:
+			</div>
+		</div>
+    	<table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th ng-repeat="ion in ions">{{ion.txt}}<sub>{{ion.sub}}</sub><sup>{{ion.sup}}</sup></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td ng-repeat="ion in ions">
+                            <input type="number" step="1" class="form-control input-sm"
+                                    ng-model="recipe.water.target[ion.key]"
+                                    ng-change="onChange()" />
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="item">
+		<div class="row">
+			<div class="col">
+				 Ajuste de sales:
+			</div>
+		</div>
+    	<table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th ng-repeat="ion in ions">{{ion.txt}}<sub>{{ion.sub}}</sub><sup>{{ion.sup}}</sup></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td ng-repeat="ion in ions">
+                            <span ng-bind="output.salts[$index]" class="form-control input-sm "/>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="item">
+		<div class="row">
+			<div class="col">
+				 Agua ajustada:
+			</div>
+		</div>
+    	<table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th ng-repeat="ion in ions">{{ion.txt}}<sub>{{ion.sub}}</sub><sup>{{ion.sup}}</sup></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td ng-repeat="ion in ions">
+                            <span ng-bind="output.adjusted[$index]" class="form-control input-sm "/>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="item">
+		<div class="row">
+			<div class="col">
+				 Diferencia:
+			</div>
+		</div>
+    	<table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th ng-repeat="ion in ions">{{ion.txt}}<sub>{{ion.sub}}</sub><sup>{{ion.sup}}</sup></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td ng-repeat="ion in ions">
+                          <span ng-bind="output.result[$index].value|result"
+                                class="form-control input-sm "
+                                ng-class="{'gt-range-in':output.result[$index].range, 'gt-range-out':!output.result[$index].range}">
+                            </span>
+                        </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+	<div class="item item-divider">Adicion de sales</div>
+
+    <div class="item">
+		<div class="row">
+			<div class="col">
+				 Sales a agregar:
+				  <button type="button" ng-click="suggest()" class="button button-positive pull-right" style="margin-right: 4px;" title="Genera una posible combinacion de sales lo mas cercana posible al resutlado buscado (OJO! esto es solo un resultado posible, no el mejor, ni el esperado para la interpretacion de la receta. Se recomienda ajustar a gusto del cervecero)">
+                Magic!  <i class="fa fa-magic"></i>
+            </button>
+			</div>
+		</div>
+    	
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Sal</th>
+                        <th>Gramos</th>
+                        <!-- <th title="cantida de cucharadas de te">Cucharadas</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Chalk CaCO<sub>3</sub></th>
+                        <td>
+                            <input type="number" step="1" class="form-control input-sm"
+                                    ng-model="recipe.water.CaCO3"
+                                    ng-change="onChange()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Baking Soda NaHCO<sub>3</sub></th>
+                        <td>
+                            <input type="number" step="1" class="form-control input-sm"
+                                    ng-model="recipe.water.NaHCO3"
+                                    ng-change="onChange()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Gypsum CaSO<sub>4</sub></th>
+                        <td>
+                            <input type="number" step="1" class="form-control input-sm"
+                                    ng-model="recipe.water.CaSO4"
+                                    ng-change="onChange()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Calcium Chloride CaCl<sub>2</sub></th>
+                        <td>
+                            <input type="number" step="1" class="form-control input-sm"
+                                    ng-model="recipe.water.CaCl2"
+                                    ng-change="onChange()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Epsom Salt MgSO<sub>4</sub></th>
+                        <td>
+                            <input type="number" step="1" class="form-control input-sm"
+                                    ng-model="recipe.water.MgSO4"
+                                    ng-change="onChange()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Canning Salt NaCl</th>
+                        <td>
+                            <input type="number" step="1" class="form-control input-sm"
+                                    ng-model="recipe.water.NaCl"
+                                    ng-change="onChange()" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+	
+</ion-content>
+</ion-view>
+
+
+
+
+
+       
+            

@@ -1,0 +1,30 @@
+<ion-view title="{{recipe.NAME}}">
+<ion-content class="has-header">
+
+<div class="list">
+	 <div class="item item-divider">
+        Otros / Adjuntos 
+       </div>
+        <div class="item" style="margin: 2em 2em 0;" class="alert alert-info" ng-hide="recipe.MISCS.MISC.length != 0">
+        Aun no tiene ningun misc en la receta
+    </div>
+	<div class="item" ng-repeat="misc in recipe.MISCS.MISC">
+		<div class="row">
+			<div class="col">Nombre: {{misc.NAME}}</div>
+		</div>
+		<div class="row">		
+			<div class="col">Tipo: {{misc.TYPE}}</div>
+			<div class="col">Uso: {{misc.USE}}</div>
+		</div>
+		<div class="row">
+			<div class="col">Tiempo: {{misc.TIME}} Min</div>
+			<div class="col">Peso: {{misc.AMOUNT*1000}} Grs</div>
+		</div>
+	</div>
+</div>
+   </ion-content>
+</ion-view>
+
+           
+        
+             

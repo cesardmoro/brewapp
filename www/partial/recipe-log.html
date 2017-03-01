@@ -1,0 +1,142 @@
+<div ng-controller="RecipeLogCtrl">
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <div class="row" style="width: 100%;margin-bottom: 1em">
+                    <button style="margin-left: 1em" ng-click="restoreAll()" type="button" class="button button-positive btn-xs pull-right">
+                        <span>Restaurar todo</span>
+                    </button>
+                    <button style="margin-left: 1em" ng-click="toogleRemovedFilter()" type="button" class="button button-positive btn-xs pull-right">
+                        <span ng-show="isFiltering">Ver eliminados</span>
+                        <span ng-hide="isFiltering">Ocultar eliminados</span>
+                    </button>
+                </div>
+                <table class="table table-condensed table-hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 16em">Fecha y Hora</th>
+                        <th>Detalle</th>
+                        <th style="width:2%"></th>
+                        <th style="width:2%"></th>
+                        <th style="width:2%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="log in recipe.log.logs | orderBy:orderLog | filter:discardFilter" ng-class="{'gt-log-active': edit == log,'gt-log-removed': log.discard }">
+                        <td title="{{log.time|date:'dd/MM/yyyy HH:mm'}}">
+                            {{log.time|formatDate}}
+                        </td>
+                        <td>{{log.detail}}</td>
+                        <td>
+                            <button ng-disabled="edit==log || log.discard" ng-click="goEdit(log)" type="button" class="button button-positive btn-xs" title="Editar entrada">
+                                <span class="glyphicon glyphicon-edit"/>
+                            </button>
+                        </td>
+                        <td>
+                            <button ng-disabled="edit==log || log.discard" ng-click="restore(log)" type="button" class="button button-positive btn-xs" title="Descarta la entrada y la pasa a la lista de disponibles (abajo)">
+                                <span class="glyphicon glyphicon-hand-down"/>
+                            </button>
+                        </td>
+                        <td>
+                            <button ng-disabled="edit==log" ng-hide="log.discard" ng-click="discard(log)" type="button" class="button button-positive btn-xs" title="Descarta la entrada y elimina permanentemente">
+                                <span class="glyphicon glyphicon-remove"/>
+                            </button>
+                            <button ng-show="log.discard" ng-click="log.discard=false" type="button" class="button button-positive btn-xs" title="Restaura entrada eliminada de la bitacora">
+                                <span class="glyphicon glyphicon-retweet"/>
+                            </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+
+                <div class="panel panel-default" style="height: 150px; ">
+                    <div class="panel-body" >
+                        <span ng-show="edit">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control input-sm" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" ng-model="edit.time" is-open="opened" />
+                                        <span class="input-group-btn">
+                                            <button class="button button-positive btn-sm" ng-click="openDp()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <div ng-model="edit.time" style="display:inline-block;">
+                                            <timepicker hour-step="1" readonly-input="false" minute-step="1" show-meridian="false"></timepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <textarea rows="3" class="form-control" id="detail" placeholder="(Detalle)" ng-model="edit.detail"/>
+                                <button ng-click="goEdit(null)" type="button" class="button button-positive pull-right" style="margin-top:0.5em">Cerrar</button>
+                            </div>
+                        </span>
+                        <span ng-hide="edit">
+                            <div style="margin: 2em 2em 0;" class="alert alert-info">
+                                Agregue mensajes personalizados en la bitacora desde <a class="btn btn-link" ng-click="goNew()" href=""><b>aqui</b></a>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+
+                <table class="table table-condensed table-hover" ng-show="recipe.FERMENTABLES.FERMENTABLE.length != 0" style="margin-top: 1em;">
+                    <thead>
+                      <tr>
+                        <th style="width: 16em">Fecha y Hora estimada</th>
+                        <th>Detalle Sugerido</th>
+                        <th style="width:2%"></th>
+                        <th style="width:2%"></th>
+                        <th style="width:2%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="log in pendingLogs">
+                        <td title="{{log.time()|date:'dd/MM/yyyy HH:mm'}}">
+                            {{log.time()|formatDate}}
+                        </td>
+                        <td>{{log.detail}}</td>
+                        <td>
+                            <button ng-click="push(log)" type="button" class="button button-positive btn-xs" title="Pasa la entrada directamente a la bitacora">
+                                <span class="glyphicon glyphicon-hand-up"/>
+                            </button>
+                        </td>
+                        <td>
+                            <button ng-click="pushAndEdit(log)" type="button" class="button button-positive btn-xs" title="Pasa la entrada a la bitacora y la deja abierta para edicion">
+                                <span class="glyphicon glyphicon-edit"/>
+                            </button>
+                        </td>
+                        <td>
+                            <button ng-click="pushAndDiscard(log)" type="button" class="button button-positive btn-xs" title="Descarta la entrada y elimina permanentemente">
+                                <span class="glyphicon glyphicon-remove"/>
+                            </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="overflow: hidden;margin-bottom: 1em;">
+            <div class="pull-left">
+                <a href="#/recipe/" type="button" class="btn btn-link glyphicon glyphicon-chevron-left"> Volver al listado</a>
+            </div>
+            <div class="pull-right">
+                <a href="#/recipe/" type="button" class="button button-positive">Cancelar</a>
+                <button ng-click="save()" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+        <div ng-repeat="notification in notifications">
+            <div class="alert alert-{{notification.type}} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>{{notification.title}}</strong>
+                {{notification.text}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2" >
+        <ng-include src="'partial/recipe-detail-indicators.html'"></ng-include>
+        <ng-include src="'partial/recipe-detail-social.html'"></ng-include>
+    </div>
+</div>

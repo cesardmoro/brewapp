@@ -1,0 +1,63 @@
+<div ng-controller="RecipeCollaboratorsCtrl">
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-body" >
+                <table class="table table-condensed table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th style="width:1px">Eliminar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="collaborator in recipe.collaborators">
+                        <td>{{collaborator.name}}</td>
+                        <td>
+                            <!-- <button ng-click="removeUser(collaborator)" class="button button-positive btn-xs" type="button">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button> -->
+                            <button ng-click="removeUser(collaborator)" type="button" class="close" aria-hidden="true">&times;</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+                <div class="input-group">
+                    <input
+                        typeahead="user._id as user.name for user in filterUser($viewValue) | orderBy:'name'"
+                        class="form-control"
+                        type="text"
+                        ng-model="userToAdd"
+                        typeahead-editable="false"
+                        typeahead-wait-ms="500"
+                        typeahead-input-formatter="formatUserSelection($model,users, $item)"
+                        placeholder="Comience a escribir para buscar"/>
+                    <span class="input-group-btn">
+                        <button ng-click="userToAdd && addUser(userToAdd)" class="button button-positive" type="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div style="overflow: hidden;margin-bottom: 1em;">
+            <div class="pull-left">
+                <a href="#/recipe/" type="button" class="btn btn-link glyphicon glyphicon-chevron-left"> Volver al listado</a>
+            </div>
+            <div class="pull-right">
+                <a href="#/recipe/" type="button" class="button button-positive">Cancelar</a>
+                <button ng-click="save()" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+        <div ng-repeat="notification in notifications">
+            <div class="alert alert-{{notification.type}} alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong>{{notification.title}}</strong>
+                {{notification.text}}
+            </div>
+        </div>            
+    </div>
+    <div class="col-md-2" >
+        <ng-include src="'partial/recipe-detail-indicators.html'"></ng-include>
+        <ng-include src="'partial/recipe-detail-social.html'"></ng-include>
+    </div>
+</div>
