@@ -1,1 +1,2 @@
-# brewapp
+# Brew-o-Matic Mobile Application
+
