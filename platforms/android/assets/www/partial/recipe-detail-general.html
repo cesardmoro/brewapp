@@ -1,0 +1,66 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Receta</div>
+            <label class="item item-input"  for="recipename">
+                <span class="input-label">Nombre</span>
+                <input type="text" class="form-control input-sm" id="recipename" placeholder="Nombre" ng-model="recipe.NAME">
+            </label>
+            <label class="item item-input"  for="batch_size"><span class="input-label">Batch (L)</span>
+              
+                  <input ng-blur="batchSizeBlur()" type="number" min="1" class="form-control input-sm" id="batch_size" step="0.1" ng-model="recipe.BATCH_SIZE">
+                  <!-- Luego activo -->
+                  <!-- <span class="input-group-btn">
+                        <a class="button button-small button-positive btn-sm" href="" ng-click="changeBatchSize()" title="Ajustar tamaño del lote segun diferentes parametros">
+                            <span class="fa fa-magic"></span>
+                        </a>
+                  </span> -->
+              
+            </label>
+            <label class="item item-input"  for="OG"><span class="input-label">OG</span>
+              
+                <span class="form-control input-sm" title="{{error.OG}}" alert-input="error.OG" id="OG" ng-bind="recipe.OG" />
+                <span class="input-group-btn">
+                  <a class="button button-small button-positive btn-sm" href="" ng-click="openCalculatorOG()">
+                    <span class="fa fa-calculator"></span>
+                  </a>
+                </span>
+              
+            </label>
+            <label class="item item-input"  for="ibu"><span class="input-label">IBU</span>
+              <span class="form-control input-sm" title="{{error.CALCIBU}}" alert-input="error.CALCIBU" id="ibu" ng-bind="recipe.CALCIBU">
+            </label>
+            <label class="item item-input"  for="balance"><span class="input-label">Balance</span>
+              <span class="form-control input-sm gt-calculated" id="balance" ng-bind="recipe.BV"/>
+            </label>
+      
+            <label class="item item-input"  for="style">
+                  <span class="input-label">Style</span>
+                 
+                    <input type="text" class="form-control input-sm" id="style" placeholder="Estilo" ng-model="recipe.STYLE.NAME" typeahead="style.name for style in styles | orderBy:'name' | filter:$viewValue">
+                    <span class="input-group-btn">
+                        <a title="Link a la pagina del estilo en el BJCP" ng-show="bjcpLink(recipe.STYLE.NAME)" class="button button-small button-positive btn-sm" target="_blank" href="{{bjcpLink(recipe.STYLE.NAME)}}" ><span class="glyphicon glyphicon-link"></span></a>
+                        <button ng-click="openStyle(recipe.STYLE.NAME)" type="button" class="button button-small button-positive btn-sm" title="{{bjcpField(recipe.STYLE.NAME,'overall')}}">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </span>
+                
+                <a ng-show="relatedLink(recipe.STYLE.NAME)" target="_blank" href="{{relatedLink(recipe.STYLE.NAME)}}" >Ver ejemplos en RateBeer.com</a>
+            </label>
+            <label class="item item-input"  for="EFFICIENCY"><span class="input-label">Eficiencia</span>
+              <input type="number" class="form-control input-sm gt-preset" id="EFFICIENCY" ng-model="recipe.EFFICIENCY">
+            </label>
+            <label class="item item-input"  for="fg"><span class="input-label">FG</span>
+              
+                <span class="form-control input-sm"  title="{{error.FG}}" alert-input="error.FG" id="fg" ng-bind="recipe.FG"/>
+                <span class="input-group-btn">
+                  <a class="button button-small button-positive btn-sm" href="" ng-click="openCalculatorFG()">
+                    <span class="fa fa-calculator"></span>
+                  </a>
+                </span>
+              </label>
+            <label class="item item-input"  for="bugu"><span class="input-label">BU/GU</span>
+              <span class="form-control input-sm gt-calculated" id="bugu" >{{calulateBUGU(recipe.CALCIBU,recipe.OG)|number:2}}</span>
+            </label>
+            <label class="item item-input"  for="abv"><span class="input-label">Alcohol (ABV) %</span>
+              <span class="form-control input-sm" title="{{error.ABV}}" alert-input="error.ABV" id="abv" ng-bind="recipe.ABV"/></span>
+            </label>
+</div>

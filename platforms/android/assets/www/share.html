@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html ng-app="share">
+  <head>
+    <title>Brew-o-Matic</title>
+    <link rel='stylesheet' href='/css/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='bower_components/bootstrap/css/bootstrap.min.css' />
+    <link rel="stylesheet" href="bower_components/bootstrap/css/bootstrap-theme.min.css">
+
+    <script src="https://apis.google.com/js/client:plusone.js"></script>
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-sanitize.min.js"></script>
+    <script src="js/lib/ui-bootstrap-tpls-0.10.0.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/lib/ng-google-chart.js"></script>
+    <script src="js/share.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="js/RecipeCtrl.js"></script>
+    <script src="js/resources.js"></script>
+    <script src="js/util/util.js"></script>
+    <script src="js/calculator/calculator.js"></script>
+    <script src="js/LoginController.js"></script>
+    <script src="js/CommentController.js"></script>
+    <script src="js/FermentationCtrl.js"></script>
+    <script src="js/LogCtrl.js"></script>
+    <script src="js/RecipeWaterCtrl.js"></script>
+    <script src="js/notification.js"></script>
+    <script src="js/Data.js"></script>
+    <script src="js/user/SettingsCtrl.js"></script>
+    <script src="js/water/water.js"></script>
+    <script src="js/env.js"></script>
+    <script src="js/ObjTree.js"></script>
+    <script src="js/observer/observer.js"></script>
+  </head>
+  <body ng-controller="ShareController" id="ShareController">
+    <div id="fb-root"></div>
+    <!--<script src="js/fb.js"></scsript>-->
+
+    <div ng-include="'partial/nav.html'"></div>
+
+    <!-- Logo & Breadcrumb -->
+    <div class="container" style="margin-top: 1em;">
+      <div class="row" >
+        <div class="col-md-2" >
+          <div class="panel panel-default" style="max-width:200px; max-height:200px;">
+            <div class="panel-body" >
+                <a href="/#/recipe">
+                    <img src="images/logo.jpg" style="max-width:100%; max-height:100%;"/>
+                </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10" ng-show="recipe._id">
+            <div class="panel panel-default">
+                <div class="panel-body" >
+                    <div><b>Compartida por:</b> {{recipe.owner.name}}</div>
+                    <div><b>Cervecero:</b> {{recipe.BREWER}}</div>
+                    <div ng-show="user" class="pull-right">
+                        <a href="/#/recipe/clone/{{encodeName(recipe._id)}}" type="button" class="btn btn-default btn-xs">
+                            <i class="glyphicon glyphicon-duplicate"></i> clonar
+                        </a>
+                        <button ng-hide="user._id == recipe.owner._id" title="Agregar a favoritos" type="button" class="btn btn-default btn-xs">
+                            <span ng-hide="user.favorites.indexOf(recipe._id) != -1" class="glyphicon glyphicon-star-empty" ng-click="addFavorites(recipe)"></span>
+                            <span ng-show="user.favorites.indexOf(recipe._id) != -1" class="glyphicon glyphicon-star" ng-click="removeFavorites(recipe)"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" ng-show="notFound">
+        <div class="alert alert-danger">
+            UPS! Receta no encontrada, es posible que el usuario la haya borrado.
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container" ng-show="recipe._id">
+        <div class="row"  ng-controller="ShareTabCtrl">
+            <div class="col-md-12" style="margin-bottom: -0.1em;float: none;">
+                <ul class="nav nav-tabs">
+                    <li ng-class="{active:selectedTab === tab}" ng-repeat="tab in sortTabs">
+                        <a style="cursor: pointer" ng-click="changeTab(tab)">{{tabs[tab].title}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div ng-include="'partial/share/share-'+tabs[selectedTab].template+'.html'"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js?onload=onLoadSuccess';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+
+        // var additionalParams = {
+        //       'callback': cb,
+        //       'clientid': "819410194566.apps.googleusercontent.com",
+        //       'cookiepolicy': "single_host_origin",
+        //       'scope': "https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
+        //       'requestvisibleactions': "http://schemas.google.com/AddActivity",
+        //       approvalprompt: 'auto'
+        // };
+
+        var google_client_id = '819410194566.apps.googleusercontent.com';
+        var google_scope = ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'];
+
+        function googleSignIn() {
+            googleapi.auth.authorize({
+                client_id: google_client_id,
+                scope: google_scope,
+                immediate:false
+            },
+            cb);
+        }
+
+        function onLoadSuccess() {
+            googleapi.auth.authorize({
+                client_id: google_client_id,
+                scope: google_scope,
+                immediate:true
+            },
+            cb);
+        }
+
+        function cb(authResult) {
+            console.log("authResult",authResult);
+            var $scope = angular.element(document.getElementById('LoginController')).scope();
+            $scope.$emit('g+login', authResult)
+        }
+    </script>
+  </body>
+
+</html>

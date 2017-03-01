@@ -1,0 +1,31 @@
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Reporte de agua</strong></div>
+        <div class="panel-body" >
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input ng-disabled="!canEdit()" class="form-control" style="width: 300px;" type="text" ng-model="water.name" placeholder="(nombre)"/>
+                </div>
+                <div ng-show="canEdit()" class="checkbox" title="Si lo hace publico puede ser visto por todos los usuarios">
+                    <label style="margin-left: 3em;">
+                        <input type="checkbox" ng-model="water.isPublic"> Reporte de Agua Publico
+                    </label>
+                </div>
+            </form>
+            <alert ng-hide="canEdit()" type="warning" style="margin-top:1em">
+                Reporte de agua publicado por otro usuario, no se puede modificar
+            </alert>
+            <water-report water="water"></water-report>
+        </div>
+    </div>
+    <div style="margin-bottom: 5em;"  ng-show="canEdit()">
+      <div class="pull-left">
+        <a href="#/settings/water/" type="button" class="btn btn-link glyphicon glyphicon-chevron-left"> Volver al listado</a>
+      </div>
+      <div class="pull-right">
+          <a href="#/settings/water/" type="button" class="button button-positive">Cancelar</a>
+          <button ng-click="save()" type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+</div>

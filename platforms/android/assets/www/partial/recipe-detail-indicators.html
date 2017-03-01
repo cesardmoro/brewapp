@@ -1,0 +1,72 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>Indicadores</strong></div>
+    <div class="panel-body" >
+        <div class="row" style="margin:0 0 1em 0" >
+            <strong>Color:</strong> <span title="{{error.CALCCOLOUR}}" alert-input="error.CALCCOLOUR">
+                {{recipe.CALCCOLOUR | number:1}} SRM</span>
+            <div style="border: 1px solid; height: 50px; background-color: {{convertColor(recipe.CALCCOLOUR)}};border-radius: 5px;">
+
+            </div>
+        </div>
+        <strong>OG: {{recipe.OG}}</strong>
+        <div class="progress">
+            <div class="progress-bar progress-bar-warning"
+                 role="progressbar"
+                 aria-valuenow="{{gravityBarValue(recipe.OG,110)}}"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 ng-style="{height:'100%',width:gravityBarValue(recipe.OG,110)+'%'}"
+                 >
+                <span class="sr-only">OG: {{gravityBarValue(recipe.OG,110)}}</span>
+            </div>
+        </div>
+        <strong>FG: {{recipe.FG}}</strong>
+        <div class="progress">
+            <div class="progress-bar progress-bar-info"
+                 role="progressbar"
+                 aria-valuenow="{{gravityBarValue(recipe.FG,110)}}"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 ng-style="{height:'100%',width:gravityBarValue(recipe.FG,110)+'%'}"
+                 >
+                <span class="sr-only">FG: {{gravityBarValue(recipe.FG,110)}}</span>
+            </div>
+        </div>
+        <strong>ABV: {{recipe.ABV}}</strong>
+        <div class="progress">
+            <div class="progress-bar progress-bar-danger"
+                 role="progressbar"
+                 aria-valuenow="{{recipe.ABV/15*100}}"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 ng-style="{height:'100%',width:recipe.ABV/15*100+'%'}"
+                 >
+                <span class="sr-only">ABV: {{recipe.ABV/15*100}}</span>
+            </div>
+        </div>
+        <strong>IBU: {{recipe.CALCIBU}}</strong>
+        <div class="progress">
+            <div class="progress-bar progress-bar-success"
+                 role="progressbar"
+                 aria-valuenow="{{recipe.CALCIBU/100*100}}"
+                 aria-valuemin="0"
+                 aria-valuemax="100"
+                 ng-style="{height:'100%',width:recipe.CALCIBU/100*100+'%'}"
+                 >
+                <span class="sr-only">IBU: {{recipe.CALCIBU/100*100}}</span>
+            </div>
+        </div>
+        <div class="row" style="margin:0em 0em 0">
+            <center><b>Balance</b>: {{calulateBUGU(recipe.CALCIBU,recipe.OG)|number:2}}</center>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" ng-style="{width: (calulateBUGU(recipe.CALCIBU,recipe.OG)*100)+'%'}">
+                    <span class="sr-only"></span>
+                </div>
+                <div class="progress-bar progress-bar-warning" ng-style="{width: ((1-calulateBUGU(recipe.CALCIBU,recipe.OG))*100)+'%'}">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

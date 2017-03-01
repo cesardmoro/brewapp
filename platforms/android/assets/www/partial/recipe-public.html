@@ -1,0 +1,44 @@
+<ul class="nav nav-tabs" style="margin-bottom: -0.1em;">
+    <li>
+        <a href="/#/recipe">Mis recetas ({{stats.owns}})</a>
+    </li>
+    <li>
+        <a href="/#/collaborated">Colaboraciones ({{stats.collaborations}})</a>
+    </li>
+    <li>
+        <a href="/#/favorites">Favoritas ({{user.favorites.length}})</a>
+    </li>
+    <li class="active">
+        <a><b>Publicadas ({{stats.publics}})</b></a>
+    </li>
+</ul>
+<div ng-cloak>
+    <div class="panel panel-default">
+        <div class="panel-body" >
+
+            <word-cloud words="styles" type="cloud" ng-click="filterByStyle">
+                <span class="label label-info" ng-show="word.getStyle()===word.word">{{ word.word }}</span>
+                <a href=""
+                    ng-hide="word.getStyle()===word.word"
+                    ng-click="clickFn(word.word)"
+                    tooltip="Mostrar {{word.count}} recetas">
+                    {{ word.word }}
+                </a>
+            </word-cloud>
+        </div>
+    </div>
+    <listview ng-if="user"
+          listview-data="published"
+          listview-sort="sort"
+          listview-config="config"
+          listview-filter="filterData"
+          listview-header="headers"></listview>
+
+    <div class="panel panel-default" ng-hide="published.length!=0">
+        <div class="panel-body">
+          <div class="alert alert-info">
+                No hay recetas publicadas
+          </div>
+        </div>
+    </div>
+</div>

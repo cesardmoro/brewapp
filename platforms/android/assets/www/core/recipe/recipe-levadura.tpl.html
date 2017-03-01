@@ -1,0 +1,47 @@
+<ion-view title="{{recipe.NAME}} - Levadura">
+<ion-content class="has-header">
+<div class="list" >
+	 <div class="item item-divider">
+        Levadura
+     </div>
+ 	<div class="item" ng-repeat="yeast in recipe.YEASTS.YEAST">
+		<div class="row">
+			<div class="col">Levadura: {{yeast.NAME}}</div>
+		</div>
+		<div class="row">
+			<div class="col">Cantidad: {{yeast.AMOUNT}} Grs</div>
+		</div>
+		<div class="row">
+			<div class="col" title="Billones de celulas x gramo">Densidad: {{yeast.density}} Billones x gramo</div>
+		</div>
+		<div class="row">
+			<div class="col" title="Gramos por cada sobre">Tamaño Sobre: {{yeast.packageSize}} Grs</div>
+		</div>
+		<div class="row">
+			<div class="col">Atenuacion: {{yeast.ATTENUATION}}</div>
+		</div>
+	</div> 
+	<div class="item">
+
+		<div class="col">Cantidad optima: {{-yeastNeed(recipe.BATCH_SIZE, recipe.OG, 0,totalDensity(), recipe.pitchRate)}} Grs</div>
+		<div class="col" ng-show="yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)<0">Cantidad Faltante: {{-yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)}}  Grs</div>
+		<div class="col" ng-show="yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)>=0">Cantidad Sobrante: {{yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)}} Grs</div>
+
+        <div class="col">
+        	Cantidad de sobres ({{recipe.YEASTS.YEAST[0].packageSize}} gramos): {{totalYeast() / recipe.YEASTS.YEAST[0].packageSize | numberCeil}}
+        </div>
+		<div class="col">
+				<span class="text-danger" ng-show="yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)<0">
+                        Aun necesitas {{-yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)}} Grs <br>para una correcta fermentacion!
+                    </span>
+                <span class="text-success" ng-show="yeastNeed(recipe.BATCH_SIZE, recipe.OG, totalYeast(),totalDensity(), recipe.pitchRate)>=0">
+                    Ya tienes levadura suficiente para una correcta fermentacion!
+                </span>
+        </div>
+	</div> 
+</div>
+
+
+
+</ion-content>
+</ion-view>

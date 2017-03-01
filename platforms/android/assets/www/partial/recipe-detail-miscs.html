@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>Otros</strong></div>
+    <div style="margin: 2em 2em 0;" class="alert alert-info" ng-hide="recipe.MISCS.MISC.length != 0">
+        Aun no tiene ningun misc en la receta
+    </div>
+    <table class="table table-condensed table-hover" ng-show="recipe.MISCS.MISC.length != 0" style="margin-top: 1em;">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Uso</th>
+          <th style="width: 8em">Tiempo (min)</th>
+          <th style="width: 8em">Peso (Grs)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="misc in recipe.MISCS.MISC">
+            <td>
+                <input typeahead-on-select="onChangeMisc(misc)" class="form-control input-sm" type="text" ng-model="misc.NAME" typeahead="misc.name for misc in miscs | filter:$viewValue" placeholder="Buscar Miscs"/>
+                <!-- <input ng-change="onChangeMisc(misc)" class="form-control input-sm" type="text" ng-model="misc.NAME" list="miscNames" placeholder="Buscar Miscs"/>
+                <datalist id="miscNames">
+                    <option ng-repeat="misc in miscs" value="{{misc.name}}">
+                        {{misc.name}}
+                    </option>
+                </datalist> -->
+            </td>
+            <!--<td><input class="form-control input-sm" type="text" ng-model="misc.TYPE" /></td>-->
+            <td>
+                <select class="form-control input-sm" ng-model="misc.TYPE">
+                    <option ng-repeat="type in miscTypes">{{type}}</option>
+                </select>
+            </td>
+            <!--<td><input class="form-control input-sm" type="text" ng-model="misc.USE" /></td>-->
+            <td>
+                <select class="form-control input-sm" ng-model="misc.USE">
+                    <option ng-repeat="use in miscUses">{{use}}</option>
+                </select>
+            </td>
+            <td><input class="form-control input-sm" type="number" ng-model="misc.TIME" placeholder="Tiempo" /></td>
+            <td>
+                <input ng-init="amountGrs=misc.AMOUNT*1000" ng-change="misc.AMOUNT=amountGrs/1000;" class="form-control input-sm" type="number" step="1" ng-model="amountGrs" placeholder="Kg"/>
+
+            </td>
+            <td>
+                <button type="button" class="close" aria-hidden="true" ng-click="removeMisc(misc)">&times;</button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-body">
+        <button type="button" class="button button-positive pull-right" ng-click="addMisc()">
+            <span class="glyphicon glyphicon-plus"></span> Agregar
+        </button>
+    </div>
+</div>

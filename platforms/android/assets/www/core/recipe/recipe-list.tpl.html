@@ -1,0 +1,72 @@
+ <ion-view title="Mis recetas">
+
+  <ion-nav-buttons side="right">
+  <button class="button" ng-click="updateRecipes()">
+    Actualizar lista
+  </button> 
+
+</ion-nav-buttons>
+   <ion-content class="has-header">
+   <div class="bar bar-header item-input-inset">
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input ng-model="search" type="search" placeholder="Buscar">
+  </label>
+  <button ng-click="search=''" class="button button-clear button-assertive">
+    Cancel
+  </button>
+</div>
+   <ion-list 
+            show-delete="shouldShowDelete"
+            show-reorder="shouldShowReorder" 
+            can-swipe="false">
+    <ion-item ng-repeat="recipe in recipes | filter:search | orderBy:'NAME' " ng-click="recipeClick(recipe)">
+        <div class="row">   
+          <div class="col"><div class="item-name">{{recipe.NAME}}</div></div>
+        </div>
+       <div class="row">
+        <div class="col"> 
+          <div class="description-item">
+            <label>ABV:</label>
+            <span>{{recipe.ABV}}</span>
+          </div>
+          <div class="description-item">
+            <label>IBU:</label>
+            <span>{{recipe.CALCIBU}}</span>
+          </div>
+          <div class="description-item">
+            <label>OG:</label>
+            <span>{{recipe.OG}}</span>
+          </div>
+        </div>
+         <div class="col srm-logo"> 
+          <i style="font-size: 60px;color:{{convertColor(recipe.CALCCOLOUR)}}" class="fa fa-beer"></i>
+         </div>
+      </div> 
+        <!--div class="row">
+           <div class="col"> Estilo: {{recipe.STYLE.NAME}}</div>
+        </div--> 
+
+        <div class="row">   
+          <div class="col"><div class="download" ng-class="(recipe.download_date) ? 'positive' : 'assertive' ">{{(recipe.download_date) ? 'Ultima vez descargada: '+ (recipe.download_date| date:'dd/MM H:mm') : 'No disponible sin conexión'}}</div></div>
+        </div>
+
+      <ion-option-button class="button-positive"
+                         ng-click="share(recipes)">
+        Share
+      </ion-option-button>
+      <ion-option-button class="button-info"
+                         ng-click="edit(recipes)">
+        Edit
+      </ion-option-button>
+      <ion-delete-button class="ion-minus-circled"
+                         ng-click="recipes.splice($index, 1)">
+      </ion-delete-button>
+      <ion-reorder-button class="ion-navicon"
+                          on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+      </ion-reorder-button>
+
+    </ion-item>
+  </ion-list>
+  </ion-content>
+</ion-view>

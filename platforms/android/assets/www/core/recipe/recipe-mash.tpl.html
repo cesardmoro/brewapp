@@ -1,0 +1,340 @@
+<ion-view title="{{recipe.NAME}}">
+<ion-content class="has-header">
+<div class="list">
+    <div class="item item-divider">Empaste</div>
+    <div class="item">
+        <div class="row">
+            <div class="col">
+                Batch: 
+            </div>
+            <div class="col">
+                {{recipe.BATCH_SIZE}} Lts
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                 Primer Mosto:
+            </div>
+            <div class="col">
+                <span class="form-control input-sm" id="firstRun"
+                   ng-bind="firstRunSg()"/>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col">
+               Agua total
+            </div>
+            <div class="col">
+                 <span class="form-control input-sm" id="totalWater"
+                                  ng-bind="round1(totalWater()) + ' Lts'" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                pH Deseado: 
+            </div>
+            <div class="col"><input type="number" step="0.01" class="form-control input-sm gt-preset" id="phMash" ng-model="recipe.MashDesiredPH" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+               
+                 Total Granos:  
+            </div>
+            <div class="col">
+               
+                  {{recipe.totalAmountMash|number:3}} Kg
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                 Temp granos (Cº):
+                
+            </div>
+            <div class="col">
+                 <input type="number" class="form-control input-sm" id="grainTemp" ng-model="recipe.GrainTemp" />
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+               Agua inicial (L):               
+            </div>
+            <div class="col">
+               <input ng-change="recipe.WatertoGrainRatio=round1(recipe.StrikeWater/recipe.totalAmountMash)"
+                                type="number" class="form-control input-sm"
+                                id="strikeWater" step="0.1"
+                                ng-model="recipe.StrikeWater" />               
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              Empaste (L/Kg):
+            </div>
+            <div class="col">
+               <input ng-change="recipe.StrikeWater=round1(recipe.WatertoGrainRatio*recipe.totalAmountMash)" type="number" class="form-control input-sm" id="watertoGrainRatio" step="0.1" ng-model="recipe.WatertoGrainRatio" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+             T. Macerado:
+            </div>
+            <div class="col">
+              <input type="number" class="form-control input-sm" id="initMashTemp" ng-model="recipe.mashTemp" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+             T. Agua Inicial:
+            </div>
+            <div class="col">
+               <span class="form-control input-sm" id="tempStrikeWater"  >
+                            {{(strikeWaterTemp())|number:0}} ºC
+                        </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+             Perdida (ºC):
+            </div>
+            <div class="col">
+              <input type="number" class="form-control input-sm gt-preset" id="lossMashTemp" ng-model="recipe.lossMashTemp" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+             Volumen Total:
+            </div>
+            <div class="col">
+              <span class="form-control input-sm" id="mashVolume" title="Valor Aproximado que ocupa la malta mas el agua en el macerador">
+                            {{BrewCalc.initialMashVolume(recipe.StrikeWater,recipe.totalAmountMash)|number:1}} Lts
+                        </span>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+            Tiempo agua (min):
+            </div>
+            <div class="col">
+                 <input type="number" class="form-control input-sm gt-preset" ng-model="recipe.timeWaterMash" />
+            </div>
+        </div>
+    </div>
+    <div class="item item-divider">Escalones</div>
+    <div class="item"  ng-hide="recipe.MASH.MASH_STEPS.MASH_STEP.length!=0">
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-info">
+                    No ha creado ningun escalon.
+                    <a href="" ng-click="addMashStep()" class="alert-link">Agrega el primero!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item"  ng-repeat="STEP in recipe.MASH.MASH_STEPS.MASH_STEP" ng-show="recipe.MASH.MASH_STEPS.MASH_STEP.length!=0">
+        <div style="cursor: pointer" ng-init="STEP.compact=true" ng-show="STEP.compact" ng-click="STEP.compact=!STEP.compact" title="Expandir los datos del escalon"> 
+            <div class="row">
+                <div class="col">
+                     {{BrewHelper.pad(moment($index),2)}} min -
+                     <strong style="width: 10em">{{ STEP.NAME||'(click para editar)' }}:</strong>
+                    {{ STEP.STEP_TEMP }}ºC  
+                        <span ng-hide="STEP.STEP_TEMP == STEP.END_TEMP">a {{ STEP.END_TEMP }}ºC</span>
+                    - {{ STEP.STEP_TIME }} min              
+                </div>
+            </div>
+             <div class="row">
+                <div class="col">
+                    <span ng-show="stepAction(STEP)">{{ stepAction(STEP) }}</span>
+                    <span ng-show="STEP.recirculate">- Recirculando -</span>
+                    ({{ calculateVolume($index) | number:1 }} Lts)
+                </div>            
+            </div>    
+        </div>    
+        
+                            
+        <div ng-hide="STEP.compact">
+            <div class="row">
+                <div class="col">
+                   <input ng-focus="onFocus=true"
+                                       title="Haga click para editar el titulo"
+                                       ng-blur="onFocus=false;updateChart();"
+                                       id="step_title"
+                                       style="padding-left: 5px;margin-left: -5px;margin-bottom: 1em"
+                                       ng-style="styleTitle(onFocus)"
+                                       class="form-control gt-fermentation-stage-title"
+                                       type="text"
+                                       ng-model="STEP.NAME"
+                                       placeholder="(Clic para ingresar un titulo)"/>
+                </div> 
+            </div>
+                 
+                            
+            <div class="row">
+                <div class="col">
+                    <label for="temp">Temp (Cº): </label>
+                </div>
+                <div class="col">
+                    <input ng-change="addWaterVol(STEP,$index)" id="temp" ng-blur="updateChart();" class="form-control input-sm" type="number" ng-model="STEP.STEP_TEMP" placeholder="Temperatura"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="temp_fin">Final (Cº): 
+                    </label>
+                </div>
+                <div class="col">
+                    <input ng-change="addWaterVol(STEP,$index)" id="temp_fin" ng-blur="updateChart();" class="form-control input-sm" type="number" ng-model="STEP.END_TEMP" placeholder="Temperatura Final"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="temp_fin">Duracion (min): 
+                    </label>
+                </div>
+                <div class="col">
+                     <input id="duration" ng-blur="updateChart();" class="form-control input-sm" type="number" ng-model="STEP.STEP_TIME" placeholder="Duracion"/></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label title="Volumen final del escalon (malta+agua)" for="finalVol">Vol. final (Lts): </label>
+                    <span class="form-control input-sm" >
+                        {{ calculateVolume($index) | number:1 }} Lts
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="checkbox ctm-check">
+                    <label>
+                        <input ng-change="updateChart()" type="checkbox" ng-model="STEP.recirculate" />
+                        Recircula?
+                    </label>
+                    </div> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Modo: </label>
+                </div>
+                 <div class="col">
+                    <select class="form-control input-sm" ng-change="changeAction(STEP, actionValue)" ng-model="actionValue" ng-init="actionValue=initActionValue(STEP)">
+                        <option value="0">(Sin accion)</option>
+                        <option value="1">Agregar Agua</option>
+                        <option value="2">Decoccion</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <strong ng-show="STEP.infuse" >Agregar agua</strong>
+                    <strong ng-show="STEP.decoction" >Decoccion</strong>
+                </div>
+            </div>
+            <div class="row">
+                
+                <div class="col">
+                    <label ng-show="STEP.infuse||STEP.decoction" >Volumen: </label>
+                </div>
+                <div class="col">
+                    <input id="infuse_amount{{$index}}" ng-show="STEP.infuse" ng-blur="updateChart();" class="form-control input-sm" type="number" ng-model="STEP.INFUSE_AMOUNT" placeholder="(Litros)"/>
+                    <input ng-show="STEP.decoction" ng-blur="updateChart();" class="form-control input-sm" type="number" ng-model="STEP.DECOCTION_AMT" placeholder="(Litros)"/>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label ng-show="STEP.infuse" for="INFUSE_TEMP">Temp (Cº):</label>
+                </div>
+                <div class="col">
+                    <input ng-change="addWaterVol(STEP,$index)" id="INFUSE_TEMP" ng-show="STEP.infuse" ng-blur="updateChart();" class="form-control input-sm" type="number" ng-model="STEP.INFUSE_TEMP" placeholder="(C°)"/>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col">
+                    <button ng-click="recipe.MASH.MASH_STEPS.MASH_STEP.splice($index,1);updateChart();"
+                            type="button"
+                            class="button button-assertive ion-close-circled" aria-hidden="true"></button>
+                </div>
+
+
+                <div class="col">
+                   <button ng-click="STEP.compact=!STEP.compact"
+                                        title="Colapsar los datos del escalon"
+                                        type="button"
+                                        class="button button-light ion-chevron-up pull-right"></button>
+                </div> 
+ 
+            </div>    
+        </div>
+    </div>
+    <div class="item">
+        <button type="button button-positive" ng-click="addMashStep()" class="button button-positive pull-right">
+            <span class="glyphicon glyphicon-plus"></span> Agregar Escalon
+        </button>
+    </div>  
+    <div class="item">
+        <div class="col">
+            <strong>Duracion Total: </strong>{{totalTime()}} minutos
+        </div>
+    </div>  
+    <div class="item">
+        <div class="col">
+              <strong>Litros agregados: </strong>{{BrewCalc.actualMashVolume(recipe.MASH.MASH_STEPS.MASH_STEP.length-1,0,recipe.MASH.MASH_STEPS.MASH_STEP)|number:1}} Litros
+        </div>
+    </div>  
+    <div class="item item-divider">Lavado</div>
+    
+    <div class="item">
+        <div class="row">
+            <div class="col">Temperatura</div>
+            <div class="col"> 
+                <input type="number"  class="form-control input-sm" id="spargeTempDesired" step="0.1" ng-model="recipe.SpargeTempDesired" />
+            </div>
+        </div>
+    </div>  
+    <div class="item">
+        <div class="row">
+            <div class="col">pH Deseado</div>
+            <div class="col"><input type="number"  class="form-control input-sm gt-preset" id="spargeWhaterDesiredPH" step="0.01" ng-model="recipe.SpargeWhaterDesiredPH" /></div>
+        </div>
+    </div>  
+    <div class="item">
+        <div class="row">
+            <div class="col">Agua</div>
+            <div class="col"> <span class="form-control input-sm" id="spargeWater"
+                              ng-bind="round1(spargeWater()) + ' Lts'" /></div>
+        </div>
+    </div>  
+    <div class="item">
+        <div class="row">
+            <div class="col">Espacio Muerto</div>
+            <div class="col">             
+                       <input type="number"  class="form-control input-sm gt-preset" id="spargeDeadSpace" step="0.1" ng-model="recipe.SpargeDeadSpace" />
+            </div>
+        </div>
+    </div>  
+    <div class="item">
+        <div class="row">
+            <div class="col">Absorcion (L/Kg)</div>
+            <div class="col">    
+                 <input type="number"  class="form-control input-sm gt-preset" id="grainAbsorbtion" step="0.1" ng-model="recipe.GrainAbsorbtion" />
+            </div>
+        </div>
+    </div>  
+    <div class="item">
+        <div class="row">
+            <div class="col">Duracion</div>
+            <div class="col">                  
+                  <input type="number" class="form-control input-sm gt-preset" step="1" ng-model="recipe.spargeDuration" />
+            </div>
+        </div> 
+    </div>  
+</div>
+
+
+
+</ion-content>
+</ion-view>
