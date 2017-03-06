@@ -2,25 +2,38 @@
 
   <ion-nav-buttons side="right">
   <button class="button" ng-click="updateRecipes()">
-    Actualizar lista
+    <i class="icon ion-refresh"></i>
   </button> 
 
 </ion-nav-buttons>
    <ion-content class="has-header">
    <div class="bar bar-header item-input-inset">
   <label class="item-input-wrapper">
+
+
     <i class="icon ion-ios-search placeholder-icon"></i>
     <input ng-model="search" type="search" placeholder="Buscar">
   </label>
   <button ng-click="search=''" class="button button-clear button-assertive">
     Cancel
-  </button>
+    </button>
 </div>
+<label class="item item-input item-select">
+    <div class="input-label">
+      Orden 
+    </div>
+    <select ng-model="order" ng-init="order='NAME'">
+      <option value="NAME">Nombre</option> 
+      <option value="code">Código</option>
+      <option  value="modificationDate">Fecha de modificación</option> 
+      <option value="download_date">Fecha de descarga</option>
+    </select>
+  </label>
    <ion-list 
             show-delete="shouldShowDelete"
             show-reorder="shouldShowReorder" 
             can-swipe="false">
-    <ion-item ng-repeat="recipe in recipes | filter:search | orderBy:'NAME' " ng-click="recipeClick(recipe)">
+    <ion-item ng-repeat="recipe in recipes | filter:search | orderBy:order " ng-click="recipeClick(recipe)">
         <div class="row">   
           <div class="col"><div class="item-name">{{recipe.NAME}}</div></div>
         </div>

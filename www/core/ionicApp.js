@@ -148,13 +148,14 @@ var app = angular.module('ionicApp',
               cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
               cordova.plugins.Keyboard.disableScroll(true);
 
+
             }
             if (window.StatusBar) {
               // org.apache.cordova.statusbar required
               StatusBar.styleDefault();
             }
             if( window.plugin){ 
-              console.log("notifications loeade"); 
+
                 window.plugin.notification.local.onadd = function (id, state, json) {
                   var notification = {
                       id: id,

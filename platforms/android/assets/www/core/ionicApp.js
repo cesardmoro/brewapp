@@ -119,6 +119,14 @@ var app = angular.module('ionicApp',
            controller: 'timerCtrl' 
         }
       }  
+    }).state('info', {
+      url: '/info',
+      views: {
+        'info-tab': {
+           templateUrl: 'core/info/info.tpl.html',
+           controller: 'infoCtrl' 
+        }
+      }  
     });
 
       var user = JSON.parse( window.localStorage.getItem( "user" ));
@@ -140,13 +148,14 @@ var app = angular.module('ionicApp',
               cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
               cordova.plugins.Keyboard.disableScroll(true);
 
+
             }
             if (window.StatusBar) {
               // org.apache.cordova.statusbar required
               StatusBar.styleDefault();
             }
             if( window.plugin){ 
-              console.log("notifications loeade"); 
+
                 window.plugin.notification.local.onadd = function (id, state, json) {
                   var notification = {
                       id: id,

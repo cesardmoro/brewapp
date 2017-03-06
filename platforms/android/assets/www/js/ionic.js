@@ -37,6 +37,7 @@ var imports = [
                 "recipe/RecipeHervidoCtrl.js", 
                 "recipe/RecipeMashCtrl.js",
                 "timer/TimerCtrl.js", 
+                "info/InfoCtrl.js", 
 ];
 
 for ( var i = 0; i < imports.length; i++) {

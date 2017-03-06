@@ -8,40 +8,57 @@ app.controller('timerCtrl', function ($scope, $cordovaLocalNotification, $ionicP
         $scope.alerts.forEach(function(alert){
             
             if(alert.left == "Expirada" || alert.left == "Cancelada") return;
-             
-            currentDate = new Date();
-            deadLine = alert.end;
-            timeDifference = (deadLine.getTime()) - (currentDate.getTime()); // deadline data minus current date
-         
-            if(alert.end>currentDate){  
+    
+            var now = new Date();
+
+            var timezoneOffset = now.getTimezoneOffset(); 
+
+            var deadLine = alert.end;
+            var timeDifference = (deadLine.getTime()) - (now.getTime()); // deadline data minus current date
+            var dend = new Date(alert.end.getTime()-timezoneOffset*60*1000); 
+            if(dend>now){  
+                if(window.plugin){
+                  $cordovaLocalNotification.schedule({
+                    id: alert.id, 
+                    at: now,
+                    title: alert.name,
+                    text: "Click aqui para resumir", 
+                    ongoing: true,  
+                });
+                }
                 alert.left = $filter('date')(timeDifference,"HH:mm:ss")
             }else{
-                alert.left = 'Expirada';
+                 timeDifference = (now.getTime()-deadLine.getTime()  ); 
+                alert.left = 'Expirada hace:' + $filter('date')(timeDifference,"HH:mm:ss");
             } 
             }, 1000,0,null);    
 
-        });  
+        });   
       
     $scope.add = function(){
         if($scope.newAlert.name && $scope.newAlert.time){
-            var now = new Date()
-            var timezoneOffset =  now.getTimezoneOffset();
+            var now = new Date();
+
+            var timezoneOffset = now.getTimezoneOffset(); 
             var alert = angular.copy($scope.newAlert);
             var notificationTime = new Date(now.getTime() + alert.time*1000*60); 
-            alert.time=(alert.time+timezoneOffset)*1000*60; 
+            alert.time=(alert.time+timezoneOffset)*1000*60;  
             var time = new Date(now.getTime() + alert.time);//* 60 para minutos
             alert.end = time; 
             $scope.newAlert = {}; 
-            alert.id = "bom-timer-"+$scope.alerts.length+1; 
+            alert.id = $scope.alerts.length+1;  
             if(window.plugin){
-                $cordovaLocalNotification.schedule({
-                    id: alert.id, 
-                    at: notificationTime,
-                    title: 'Alerta: Brew-o-Matic',
-                    text: alert.name,
-                    sound: "file://resources/audio/alarm.mp3",
-                });
-            }
+                cordova.plugins.backgroundMode.enable();
+                cordova.plugins.backgroundMode.setEnabled(true);
+                cordova.plugins.backgroundMode.setDefaults({
+                    title: "Brew-o-Matic Esta corriendo",
+                    text: (alert.id>1) ? "Tienes "+alert.id+" alarmas pendientes" : "Tienes 1 alarma pendiente", 
+                    icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
+                    //color: "F14F4D", // hex format like 'F14F4D'
+                    resume: true, 
+                    bigText: true 
+                }); 
+            } 
             
 
             $scope.alerts.push(alert);     
