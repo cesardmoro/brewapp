@@ -7,7 +7,7 @@ app.controller('timerCtrl', function ($scope, $cordovaLocalNotification, $ionicP
     $interval(function(){    
         $scope.alerts.forEach(function(alert){
             
-            if(alert.left == "Expirada" || alert.left == "Cancelada") return;
+            if(alert.left && alert.left.indexOf("Expirada") !== -1 || alert.left == "Cancelada") return;
     
             var now = new Date();
 
@@ -17,25 +17,47 @@ app.controller('timerCtrl', function ($scope, $cordovaLocalNotification, $ionicP
             var timeDifference = (deadLine.getTime()) - (now.getTime()); // deadline data minus current date
             var dend = new Date(alert.end.getTime()-timezoneOffset*60*1000); 
             if(dend>now){  
-                if(window.plugin){
-                  $cordovaLocalNotification.schedule({
-                    id: alert.id, 
-                    at: now,
-                    title: alert.name,
-                    text: "Click aqui para resumir", 
-                    ongoing: true,  
-                });
-                }
+                
+                 
+                
                 alert.left = $filter('date')(timeDifference,"HH:mm:ss")
             }else{
-                 timeDifference = (now.getTime()-deadLine.getTime()  ); 
+                if(window.plugin){ 
+                    $cordovaLocalNotification.schedule({
+                        id: alert.id, 
+                        at: now,
+                        title: 'Alerta: Brew-o-Matic',
+                        text: alert.name,
+                        sound: "file://resources/audio/alarm.mp3",
+                    }); 
+                
+                    if(cordova.plugins.backgroundMode.isActive()){
+                        // Turn screen on
+                        cordova.plugins.backgroundMode.wakeUp();
+                        // Turn screen on and show app even locked
+                        cordova.plugins.backgroundMode.unlock();
+                    }  
+                } 
+                 timeDifference = (now.getTime()-deadLine.getTime()); 
                 alert.left = 'Expirada hace:' + $filter('date')(timeDifference,"HH:mm:ss");
+                if($scope.alertCount() == 0){
+                    $scope.disableBackground();
+                }
             } 
             }, 1000,0,null);    
-
+           
         });   
-      
-    $scope.add = function(){
+        
+    $scope.alertCount = function(){ 
+         var ct = 0;
+         $scope.alerts.forEach(function(alert){ 
+            if(alert.left && alert.left.indexOf("Expirada") == -1 && alert.left != "Cancelada"){
+                ct++;
+            }
+         }); 
+         return ct;
+    }
+    $scope.addAlert = function(){
         if($scope.newAlert.name && $scope.newAlert.time){
             var now = new Date();
 
@@ -46,27 +68,35 @@ app.controller('timerCtrl', function ($scope, $cordovaLocalNotification, $ionicP
             var time = new Date(now.getTime() + alert.time);//* 60 para minutos
             alert.end = time; 
             $scope.newAlert = {}; 
-            alert.id = $scope.alerts.length+1;  
-            if(window.plugin){
-                cordova.plugins.backgroundMode.enable();
-                cordova.plugins.backgroundMode.setEnabled(true);
-                cordova.plugins.backgroundMode.setDefaults({
-                    title: "Brew-o-Matic Esta corriendo",
-                    text: (alert.id>1) ? "Tienes "+alert.id+" alarmas pendientes" : "Tienes 1 alarma pendiente", 
-                    icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
-                    //color: "F14F4D", // hex format like 'F14F4D'
-                    resume: true, 
-                    bigText: true 
-                }); 
-            } 
-            
-
+            alert.id = $scope.alerts.length+1;   
             $scope.alerts.push(alert);     
+            $scope.goBackground();
             
 
             
 
        } 
+    }
+    $scope.disableBackground = function(){
+        console.log('backgroundMode disabled');
+        if(window.plugin){ 
+            cordova.plugins.backgroundMode.disable(); 
+        }   
+    }
+    $scope.goBackground = function(){  
+        console.log('backgroundMode enabled');
+        if(window.plugin){
+            cordova.plugins.backgroundMode.enable();
+            //cordova.plugins.backgroundMode.setEnabled(true);
+            cordova.plugins.backgroundMode.setDefaults({
+                title: "Brew-o-Matic Esta corriendo", 
+                text: ($scope.alertCount()>1) ? "Tienes "+$scope.alertCount()+" alarmas pendientes" : "Tienes 1 alarma pendiente", 
+                icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
+                //color: "F14F4D", // hex format like 'F14F4D'
+                resume: true, 
+                bigText: true 
+            }); 
+        } 
     }
     $scope.cancelNotification = function(alert){
         var confirmPopup = $ionicPopup.confirm({
@@ -76,6 +106,9 @@ app.controller('timerCtrl', function ($scope, $cordovaLocalNotification, $ionicP
          confirmPopup.then(function(res) {
            if(res) {
              alert.left = "Cancelada";
+             if($scope.alertCount() == 0){ 
+                $scope.disableBackground();
+            }
              if(window.plugin){ 
                 $cordovaLocalNotification.cancel(alert.id, function(){alert('se ha removido con exito');})
              }   

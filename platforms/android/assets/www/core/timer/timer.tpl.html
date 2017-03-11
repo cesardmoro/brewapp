@@ -3,7 +3,6 @@
 
     <div class="list">
     	<div class="item item-divider">Alertas</div>
-			
 		  <label class="item item-input">
 		    <input type="text" ng-model="newAlert.name" required placeholder="Nombre (Ej: Macerado).">
 		  </label>
@@ -12,13 +11,11 @@
 		  </label>
 			<div class="item item-button-right"> 
 			 Agregar alerta
-	    		<button class="button button-balanced ion-plus-circled" ng-click="add()"></button>
+	    		<button class="button button-balanced ion-plus-circled" ng-click="addAlert()"></button>
 	   		</div> 
 	   	<div class="item item-divider">Alertas Activas:</div>
 	   	<div class="item item-button-right" ng-repeat="alert in alerts">
 	   		{{alert.left}} - {{alert.name}}
-	   			
-	   			
 	   		<button class="button button-assertive ion-close-circled" ng-click="cancelNotification(alert)"></button>
 	   	</div>
     </div>

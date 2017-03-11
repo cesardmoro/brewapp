@@ -211,6 +211,18 @@ var app = angular.module('ionicApp',
         $rootScope.formatDate = function(date) {
             return util.formatDate(date, $filter('date'));
         };
+
+        $rootScope.round = function(value) {
+            return Math.round(value);
+        };
+
+        $rootScope.round1 = function(value) {
+            return BrewHelper.round(value,10);
+        };
+
+        $rootScope.round2 = function(value) {
+            return BrewHelper.round(value,100);
+        };
     })
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
   $scope.showMenu = function () {
