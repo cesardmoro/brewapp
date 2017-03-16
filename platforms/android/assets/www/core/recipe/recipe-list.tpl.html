@@ -29,6 +29,12 @@
       <option value="-download_date">Fecha de descarga</option>
     </select>
   </label>
+  <ion-list can-swipe=false ng-if="!recipes">
+      <ion-item> 
+          <a ng-click="updateRecipes()">No tienes recetas - Pulsa aqui para sincronizar</a>
+
+      </ion-item> 
+  </ion-list>
    <ion-list 
             show-delete="shouldShowDelete"
             show-reorder="shouldShowReorder" 

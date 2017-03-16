@@ -1,7 +1,7 @@
 {
-  "name": "Brew-o-matic APP",
+  "name": "Brew-o-matic",
   "version": "1.1.1",
-  "description": "Brew-o-matic App",
+  "description": "Brew-o-matic",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
