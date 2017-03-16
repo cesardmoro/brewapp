@@ -131,10 +131,8 @@ var app = angular.module('ionicApp',
 
       var user = JSON.parse( window.localStorage.getItem( "user" ));
       if(user){
-
        $urlRouterProvider.otherwise("recipe");
       }else{
-
        $urlRouterProvider.otherwise("login");
       }
 

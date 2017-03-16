@@ -70,7 +70,7 @@ app.controller('timerCtrl', function ($scope, $cordovaLocalNotification, $ionicP
             $scope.newAlert = {}; 
             alert.id = $scope.alerts.length+1;   
             $scope.alerts.push(alert);     
-            $scope.goBackground();
+            $scope.enableBackground();
             
 
             
@@ -83,9 +83,10 @@ app.controller('timerCtrl', function ($scope, $cordovaLocalNotification, $ionicP
             cordova.plugins.backgroundMode.disable(); 
         }   
     }
-    $scope.goBackground = function(){  
+    $scope.enableBackground = function(){  
         console.log('backgroundMode enabled');
         if(window.plugin){
+
             cordova.plugins.backgroundMode.enable();
             //cordova.plugins.backgroundMode.setEnabled(true);
             cordova.plugins.backgroundMode.setDefaults({

@@ -11,6 +11,7 @@ app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe
         }
 	}
 	$scope.refreshRecipeDownloadDate = function(){
+		if($scope.recipes){
 		$scope.recipes.forEach(function(recipe){
 
 		        var rec = JSON.parse( window.localStorage.getItem( "recipe-"+recipe._id ));
@@ -20,6 +21,7 @@ app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe
 					recipe.download_date = rec.download_date;
 				}
 			});
+		}
 	}
 	$scope.updateRecipes = function(){
 
@@ -32,16 +34,23 @@ app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe
 			 	$scope.refreshRecipeDownloadDate();
 			 	$ionicLoading.hide();
 		}, function(d) {
-			$ionicLoading.hide();
+		  $ionicLoading.hide();
+		   var user = JSON.parse( window.localStorage.getItem( "user" ));
+		      if(user){
+			      
+				  var alertPopup = $ionicPopup.alert({
+				     title: 'Error al sincronizar',
+				     template: 'Intentelo nuevamente'
+				   }); 
+				  $rootScope.loginSuccess = false;
+				  alertPopup.then(function(res) {
+				     $state.go('login'); 
+				   });
 
-		  var alertPopup = $ionicPopup.alert({
-		     title: 'Error al sincronizar',
-		     template: 'Intentelo nuevamente'
-		   }); 
-		  $rootScope.loginSuccess = false;
-		  alertPopup.then(function(res) {
-		     $state.go('login'); 
-		   });
+		      }else{
+		       
+		       $state.go('login'); 
+		      }
 		}); 
 
 	}
