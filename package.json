@@ -1,7 +1,7 @@
 {
-  "name": "brewapp",
+  "name": "Brew-o-matic APP",
   "version": "1.1.1",
-  "description": "brewapp: An Ionic project",
+  "description": "Brew-o-matic App",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
