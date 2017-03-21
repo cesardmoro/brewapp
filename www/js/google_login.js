@@ -53,6 +53,7 @@ googleLoginService.factory('googleLogin', [
         var service = {};
         service.access_token = false;
         service.redirect_url = 'http://localhost:8100/bomapp/www';
+        //need to get you google app id 
         service.client_id = '364007043780-4d9iarpudskie4hlnppuk6s3rj65okae.apps.googleusercontent.com';
         service.secret = 'xQzzggY2d1pyjZUUkTi69pXB';
         service.scope = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.me';

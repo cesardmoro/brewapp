@@ -47,6 +47,9 @@
         },
         "cordova-plugin-background-mode": {
             "PACKAGE_NAME": "com.ionicframework.brewapp617969"
+        },
+        "cordova-plugin-googleplus": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         }
     },
     "dependent_plugins": {

@@ -5,7 +5,7 @@
         <link rel='stylesheet' href='/css/style.css' />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <script src="https://apis.google.com/js/client:plusone.js"></script>
+        <script src="https://apis.google.com/js/client:plusone.js"></script> 
 
         <link rel="canonical" href="http://brew-o-matic.eu01.aws.af.cm" />
 
@@ -18,11 +18,13 @@
         <link href="css/style.css" rel="stylesheet">
 
         <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-        <link href="css/ionic.app.css" rel="stylesheet">
+        <link href="css/ionic.app.css" rel="st ylesheet">
         -->
 
         <!-- ionic/angularjs js -->
+        <script src="secrets.js"></script>
         <script src="lib/ionic/js/ionic.bundle.js"></script>
+        <script src="lib/ionic-native/ionic.native.js"></script>
         <script src="lib/ionic/js/angular/angular-resource.min.js"></script>
         <script src="js/lib/ui-bootstrap-tpls-0.10.0.min.js"></script>
 
@@ -48,9 +50,9 @@
     </ion-nav-bar>
              
 
-       <ion-nav-view name="login-view"></ion-nav-view>
+       <ion-nav-view ng-if="!loginSuccess" name="login-view"></ion-nav-view>
       <ion-tabs ng-show="loginSuccess" class="tabs-icon-top tabs-dark" >
-
+ 
         <ion-tab title="Mis Recetas" icon="ion-ios-book" href="#/recipe">
           <ion-nav-view name="home-tab"></ion-nav-view>
         </ion-tab>

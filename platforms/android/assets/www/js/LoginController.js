@@ -1,6 +1,6 @@
 (function() {
 
-    var index = angular.module('login',['GoogleLoginService']);
+    var index = angular.module('login',['ionic.native']);
 
     index.run(function($rootScope, $state) {
         
@@ -12,29 +12,45 @@
         }
         // retrieve it
         
-    });
+    }); 
  
-    index.controller("LoginController",function($scope,$rootScope,User, googleLogin, $state) {
-         
+    index.controller("LoginController",function($scope,$rootScope,User, $cordovaGooglePlus, $state) {
+          
         
-        $scope.google_data = {};
-        $scope.login = function () {
-            var promise = googleLogin.startLogin();
-            promise.then(function (data) {
-                $scope.google_data = data;
+        $scope.google_data = {}; 
+        $scope.login = function() {
+            if(window.plugin){
+                $cordovaGooglePlus.login({})
+                .then(function(data) {
+                    $scope.google_data = data;
+                    User.getByGoogleId({
+                            id:data.userId,
+                            name: data.name
+                        },function(user){
+                            $rootScope.loginSuccess = true;
+                            $state.go('recipe')
+                            $rootScope.user = user;
+                            window.localStorage.setItem( "user", JSON.stringify(user)); 
+
+                        });
+                }, function(err) {
+                  console.log('error');
+                  console.log(err);
+                });
+            }else{
                 User.getByGoogleId({
-                        id:data.google_id,
-                        name: data.name
-                    },function(user){
-                        $rootScope.loginSuccess = true;
-                        $state.go('recipe')
-                        $rootScope.user = user;
-                        window.localStorage.setItem( "user", JSON.stringify(user));  
-                    });
-            }, function (data) {
-                $scope.google_data = data;
-            });
-        } 
+                            id:"105156966740356512897",
+                            name: "Cesar Daniel Moro"
+                        },function(user){
+                            $rootScope.loginSuccess = true;
+                            $state.go('recipe')
+                            $rootScope.user = user;
+                            window.localStorage.setItem( "user", JSON.stringify(user)); 
+
+                        });
+            }
+          };
+
         
         $scope.$on('g+login',function(event, authResult) {
             if ( authResult == null ) {

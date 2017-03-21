@@ -1,0 +1,5 @@
+cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=364007043780-lq5j9qdprp7obujbri5a5ckidedu62pi.apps.googleusercontent.com
+$ cordova prepare
+
+
+ionic plugin add https://github.com/EddyVerbruggen/cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=364007043780-lq5j9qdprp7obujbri5a5ckidedu62pi.apps.googleusercontent.com

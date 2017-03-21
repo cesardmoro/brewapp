@@ -1,2 +1,5 @@
 [0316/143948.036:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\Noflat\: Access is denied. (0x5)
 [0316/150621.863:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\Noflat\: Access is denied. (0x5)
+[0316/172301.093:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\Noflat\: Access is denied. (0x5)
+[0317/153721.043:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\Noflat\: Access is denied. (0x5)
+[0317/161135.695:ERROR:crash_report_database_win.cc(563)] CreateDirectory C:\Program Files (x86)\Noflat\: Access is denied. (0x5)

@@ -85,6 +85,14 @@ module.exports = [
             "cordova.plugins.backgroundMode",
             "plugin.backgroundMode"
         ]
+    },
+    {
+        "id": "cordova-plugin-googleplus.GooglePlus",
+        "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+        "pluginId": "cordova-plugin-googleplus",
+        "clobbers": [
+            "window.plugins.googleplus"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -100,7 +108,8 @@ module.exports.metadata =
     "cordova-plugin-battery-status": "1.2.0",
     "cordova-plugin-app-event": "1.2.0",
     "de.appplant.cordova.plugin.local-notification": "0.8.4",
-    "cordova-plugin-background-mode": "0.7.2"
+    "cordova-plugin-background-mode": "0.7.2",
+    "cordova-plugin-googleplus": "5.1.1"
 };
 // BOTTOM OF METADATA
 });

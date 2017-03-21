@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.ionicframework.brewapp617969;
+package com.ar.brew_o_matic.brewapp;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

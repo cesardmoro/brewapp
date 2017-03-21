@@ -1,5 +1,6 @@
 "use strict";
-
+//364007043780-lq5j9qdprp7obujbri5a5ckidedu62pi.apps.googleusercontent.com
+//1023762673194-gq1vqpbfp4u0o6s0l76a237jrprpofuh.apps.googleusercontent.com
 function getScript(src) {
     document.write('<' + 'script src="' + src + '"'
             + ' type="text/javascript"><' + '/script>');

@@ -1,4 +1,4 @@
-app.controller('RecipeDetailCtrl', function ($scope, Recipe, $stateParams,$state,  BrewHelper, $rootScope, $ionicLoading) {
+app.controller('RecipeDetailCtrl', function ($scope, Recipe, $stateParams,$state,  BrewHelper, $rootScope, $ionicLoading, $ionicPopup) {
 
 
     $scope.init = function(){ 
