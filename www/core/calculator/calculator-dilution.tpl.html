@@ -1,0 +1,66 @@
+<ion-view title="Dilución">
+<ion-content class="has-header">
+
+<div class="list">
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Lts de mosto</label></div>
+            <div class="col"> 
+                   <input type="number" step="0.1" ng-model="dilution.currentVol" class="form-control input-sm"/>
+                   </div>
+        </div>          
+    </div>
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Densidad actual</label></div>
+            <div class="col"> 
+                    <input type="number" step="0.001" ng-model="dilution.currentGrav" class="form-control input-sm"/>
+            </div>
+        </div>          
+    </div>
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Densidad actual Plato</label></div>
+            <div class="col"> 
+                    <input type="number" step="0.001" ng-model="dilution.currentGravP" class="form-control input-sm"/>
+            </div>
+        </div>          
+    </div>
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Densidad objetivo</label></div>
+            <div class="col"> 
+                    <input type="number" step="0.001" ng-model="dilution.finalGrav" class="form-control input-sm"/>
+            </div>
+        </div>          
+    </div>
+
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Densidad objetivo Plato</label></div>
+            <div class="col"> 
+                    <input ng-blur="updateFG()" type="number" step="0.01" ng-model="dilution.finalGravP" class="form-control input-sm"/>
+            </div>
+        </div>          
+    </div>
+
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Volumen final</label></div>
+            <div class="col"> 
+                    <input ng-blur="updateFG()" type="text"  value="{{dilution.finalVol|number:1}}" class="gt-calculated form-control input-sm"/>
+            </div>
+        </div>          
+    </div>
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Lts Agua</label></div>
+            <div class="col"> 
+                    <input ng-blur="updateFG()" type="text"  value=" {{dilution.finalVol-dilution.currentVol|number:1}}" class="gt-calculated form-control input-sm"/>
+            </div>
+        </div>          
+    </div>
+
+</div>
+   </ion-content>
+</ion-view>

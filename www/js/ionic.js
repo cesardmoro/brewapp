@@ -38,6 +38,7 @@ var imports = [
                 "recipe/RecipeMashCtrl.js",
                 "timer/TimerCtrl.js", 
                 "info/InfoCtrl.js", 
+                "calculator/calculatorMainCtrl.js", 
 ];
 
 for ( var i = 0; i < imports.length; i++) {

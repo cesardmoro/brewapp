@@ -39,10 +39,10 @@ app.controller('RecipeDetailCtrl', function ($scope, Recipe, $stateParams,$state
                           alertPopup.then(function(res) {
                              $state.go('login'); 
                            });
-                        });
+                         });
     }
     $scope.showFermentables = function(){
-       $state.go('recipeFermentables', {recipe: $scope.recipe});
+       $state.go('tabs.recipeFermentables', {recipe: $scope.recipe});
 
 
     }

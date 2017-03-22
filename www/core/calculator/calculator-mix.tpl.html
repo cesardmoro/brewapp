@@ -1,8 +1,9 @@
-<div class="panel panel-default" >
-    <div class="panel-heading">Mezclas</div>
-    <div class="panel-body">
-        <form class="form-horizontal" role="form">
-            <table class="table table-bordered table-condensed">
+<ion-view title="Mezclas">
+<ion-content class="has-header">
+
+<div class="list"> 
+    <div class="item">
+            <table class="table table-condensed">
                 <thead>
                     <tr>
                         <th>Densidad</th>
@@ -29,19 +30,37 @@
                             ng-model="item.size"/>
                         </td>
                         <td>
-                            <button type="button" class="close" aria-hidden="true" ng-click="remove(item)">&times;</button>
+                            <button type="button" class="button button-assertive ion-close-circled" aria-hidden="true" ng-click="remove(item)"></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <div class="panel-body">
-                <span class="pull-left">
-                    Densidad: <b>{{gravity}}</b>
-                </span>
+    </div>
+     <div class="item">
+          <div class="row">
+            <div class="col">
+                 Densidad:
+            </div>
+            <div class="col">
+                {{gravity}}
+            </div>
+        </div>
+
+     </div>
+     <div class="item">
+          <div class="row">
+            <div class="col">
+                 
+            </div>
+            <div class="col">
                 <button type="button" class="button button-positive pull-right" ng-click="add()">
-                    <span class="glyphicon glyphicon-plus"></span>
+                    <span>Agregar Otro</span>
                 </button>
             </div>
-        </form>
-    </div>
+        </div>
+
+     
 </div>
+</div> 
+   </ion-content>
+</ion-view>

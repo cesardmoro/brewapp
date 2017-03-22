@@ -1,4 +1,5 @@
 
+
 a {
   color: #00b7ff;
 }
@@ -20,8 +21,11 @@ a {
     color: white !important;
 }
 
-.gt-calculated  {
-    background: #FFFFCC !important
+.gt-calculated {
+    color: #FFFFCC;
+    font-weight: 600;
+    background: none!important;
+     color: #1a8214!important; 
 }
 
 .gt-preset {
@@ -394,4 +398,30 @@ table.table.table-condensed input {
 .ctm-check.checkbox input {
     position: absolute;
     right: 0;
+}
+.item-input input {
+    text-align: right;
+    height: auto;
+}
+
+table.table.table-condensed .button {
+    margin: -2px 5px;
+    min-height: auto;
+    min-width: auto;
+    padding: 0px 5px;
+    line-height: 25px;
+}
+
+table.table.table-condensed input{
+    margin: 0px;
+    min-height: auto;
+    min-width: auto;
+    padding: 0px 10px;
+    text-align: right;
+}
+
+.col.icon img {
+    margin-bottom: -15px;
+    position: relative;
+    top: -5px;
 }

@@ -8,7 +8,7 @@
         var user = JSON.parse( window.localStorage.getItem( "user" ));
         if(user){
             $rootScope.loginSuccess = true;
-            $state.go('recipe');
+            $state.go('tabs.recipe');
         }
         // retrieve it
         
@@ -28,7 +28,7 @@
                             name: data.name
                         },function(user){
                             $rootScope.loginSuccess = true;
-                            $state.go('recipe')
+                            $state.go('tabs.recipe')
                             $rootScope.user = user;
                             window.localStorage.setItem( "user", JSON.stringify(user)); 
 
@@ -43,7 +43,7 @@
                             name: "Cesar Daniel Moro"
                         },function(user){
                             $rootScope.loginSuccess = true;
-                            $state.go('recipe')
+                            $state.go('tabs.recipe')
                             $rootScope.user = user;
                             window.localStorage.setItem( "user", JSON.stringify(user)); 
 
@@ -73,7 +73,7 @@
                         name: obj.name
                     },function(user){
                         $rootScope.loginSuccess = true;
-        $state.go('recipe')
+        $state.go('tabs.recipe')
                         user.user = user;
 
                         console.log(user);
