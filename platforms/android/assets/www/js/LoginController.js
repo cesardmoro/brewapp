@@ -1,5 +1,5 @@
 (function() {
-
+    if(!googleSecrets)googleSecrets.cesarID = ""; console.log('you have to create secrets.js file');
     var index = angular.module('login',['ionic.native']);
 
     index.run(function($rootScope, $state) {
@@ -8,11 +8,11 @@
         var user = JSON.parse( window.localStorage.getItem( "user" ));
         if(user){
             $rootScope.loginSuccess = true;
-            $state.go('recipe');
+            $state.go('tabs.recipe');
         }
         // retrieve it
         
-    }); 
+    });  
  
     index.controller("LoginController",function($scope,$rootScope,User, $cordovaGooglePlus, $state) {
           
@@ -28,7 +28,7 @@
                             name: data.name
                         },function(user){
                             $rootScope.loginSuccess = true;
-                            $state.go('recipe')
+                            $state.go('tabs.recipe')
                             $rootScope.user = user;
                             window.localStorage.setItem( "user", JSON.stringify(user)); 
 
@@ -39,11 +39,11 @@
                 });
             }else{
                 User.getByGoogleId({
-                            id:"105156966740356512897",
+                            id:googleSecrets.cesarID,
                             name: "Cesar Daniel Moro"
                         },function(user){
                             $rootScope.loginSuccess = true;
-                            $state.go('recipe')
+                            $state.go('tabs.recipe')
                             $rootScope.user = user;
                             window.localStorage.setItem( "user", JSON.stringify(user)); 
 
@@ -73,7 +73,7 @@
                         name: obj.name
                     },function(user){
                         $rootScope.loginSuccess = true;
-        $state.go('recipe')
+        $state.go('tabs.recipe')
                         user.user = user;
 
                         console.log(user);

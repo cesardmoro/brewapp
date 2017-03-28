@@ -1,0 +1,66 @@
+<ion-view title="Mezclas">
+<ion-content class="has-header">
+
+<div class="list"> 
+    <div class="item">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Densidad</th>
+                        <th>Litros</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in items">
+                        <td>
+                            <input
+                                ng-change=""
+                                class="form-control input-sm"
+                                type="number"
+                                step="0.001"
+                                ng-model="item.gravity"/>
+                        </td>
+                        <td>
+                            <input
+                            ng-change=""
+                            class="form-control input-sm"
+                            type="number"
+                            step="0.5"
+                            ng-model="item.size"/>
+                        </td>
+                        <td>
+                            <button type="button" class="button button-assertive ion-close-circled" aria-hidden="true" ng-click="remove(item)"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+     <div class="item">
+          <div class="row">
+            <div class="col">
+                 Densidad:
+            </div>
+            <div class="col">
+                {{gravity}}
+            </div>
+        </div>
+
+     </div>
+     <div class="item">
+          <div class="row">
+            <div class="col">
+                 
+            </div>
+            <div class="col">
+                <button type="button" class="button button-positive pull-right" ng-click="add()">
+                    <span>Agregar Otro</span>
+                </button>
+            </div>
+        </div>
+
+     
+</div>
+</div> 
+   </ion-content>
+</ion-view>

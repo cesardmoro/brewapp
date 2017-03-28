@@ -1,0 +1,75 @@
+<ion-view title="Alcohol - %ABV">
+<ion-content class="has-header">
+
+<div class="list">
+   <div class="item item-input item-select">
+        <div class="row">
+            <div class="col">Calcular</div>
+            <div class="col"> 
+                <select ng-model="alcohol.mode" class="form-control input-sm">
+                        <option value="OG">DI</option>
+                        <option value="FG">DF</option>
+                        <option value="ABV">Alcohol</option>
+                    </select>
+            </div>
+        </div>
+    </div> 
+     <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">DI</label></div>
+            <div class="col"> 
+                    <input ng-disabled="alcohol.mode=='OG'" type="number" step="0.001" ng-model="alcohol.OG" class="form-control input-sm" ng-class="{'gt-calculated':alcohol.mode=='OG'}"/>
+            </div>
+        </div>  
+    </div>  
+      <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">DI Plato</label></div>
+            <div class="col"> 
+                      <input ng-blur="updateOG()" ng-disabled="alcohol.mode=='OG'" type="number" step="0.01" ng-model="alcohol.OGP" class="form-control input-sm" ng-class="{'gt-calculated':alcohol.mode=='OG'}"/>
+            </div>
+        </div>
+    </div> 
+     <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">DF</label></div>
+            <div class="col"> 
+                     <input ng-disabled="alcohol.mode=='FG'" type="number" step="0.001" ng-model="alcohol.FG" class="form-control input-sm" ng-class="{'gt-calculated':alcohol.mode=='FG'}"/>
+            </div>
+        </div>  
+    </div>  
+      <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">DF Plato</label></div>
+            <div class="col"> 
+                      <input ng-blur="updateFG()" ng-disabled="alcohol.mode=='FG'" type="number" step="0.01" ng-model="alcohol.FGP" class="form-control input-sm" ng-class="{'gt-calculated':alcohol.mode=='FG'}"/>
+            </div>
+        </div>
+    </div> 
+                    
+              
+       
+      <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="col-sm-2 control-label">Alcohol</label></div>
+            <div class="col"> 
+                        <input ng-disabled="alcohol.mode=='ABV'" type="number" step="0.01" ng-model="alcohol.ABV" class="form-control input-sm" ng-class="{'gt-calculated':alcohol.mode=='ABV'}"/>
+            </div>
+        </div>
+    </div> 
+                    
+              
+       
+       
+      <div class="item item-input">
+        <div class="row">
+            <div class="col">   <label title="atenuacion aparente" class="col-sm-2 control-label">Atenuaci&oacuten.</label></div>
+            <div class="col"> 
+
+                      <input disabled="disabled" class="form-control input-sm gt-calculated" value="{{alcohol.attenuation|number:0}}%" type="text">
+            </div>
+        </div>
+    </div> 
+</div>
+   </ion-content>
+</ion-view>

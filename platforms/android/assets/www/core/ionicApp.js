@@ -26,27 +26,31 @@ var app = angular.module('ionicApp',
            controller: 'LoginController'
         }
       }  
+    }) 
+   .state('tabs', {
+      url: "/tab",
+      abstract: true, 
+      templateUrl: "core/tabs.tpl.html"
     })
-   
-    .state('recipe', {
+    .state('tabs.recipe', {
       url: '/recipe',
       views: {
         'home-tab': {
            templateUrl: 'core/recipe/recipe-list.tpl.html',
            controller: 'recipeListCtrl'
         }
-      }  
+      }   
     })//No es hijo de recipe porque si fuera asi tendria que ser una view internior por ionic
-    .state('recipeEdit', {
-      url: 'recipe/edit/:recipeId',
+    .state('tabs.recipeEdit', {
+      url: '/recipe/edit/:recipeId',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-detail.tpl.html',
           controller: 'RecipeDetailCtrl'
         }
       }
-    }).state('recipeFermentables', {
-      url: 'recipe/fermentable',
+    }).state('tabs.recipeFermentables', {
+      url: '/recipe/fermentable',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-fermentable.tpl.html',
@@ -54,48 +58,48 @@ var app = angular.module('ionicApp',
           params: {recipe: null}, 
         }
       }
-    }).state('recipeLupulo', {
-      url: 'recipe/lupulo',
+    }).state('tabs.recipeLupulo', {
+      url: '/recipe/lupulo',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-lupulo.tpl.html',
           controller: 'RecipeLupuloCtrl',
         }
       }
-    }).state('recipeLevadura', {
-      url: 'recipe/levadura',
+    }).state('tabs.recipeLevadura', {
+      url: '/recipe/levadura',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-levadura.tpl.html',
           controller: 'RecipeLevaduraCtrl',
         }
       }
-    }).state('recipeOtros', {
-      url: 'recipe/otros',
+    }).state('tabs.recipeOtros', {
+      url: '/recipe/otros',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-otros.tpl.html',
           controller: 'RecipeOtrosCtrl',
         }
       }
-    }).state('recipeAgua', {
-      url: 'recipe/agua',
+    }).state('tabs.recipeAgua', {
+      url: '/recipe/agua',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-agua.tpl.html',
           controller: 'RecipeAguaCtrl',
         }
       }
-    }).state('recipeMash', {
-      url: 'recipe/mash', 
+    }).state('tabs.recipeMash', {
+      url: '/recipe/mash', 
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-mash.tpl.html',
           controller: 'RecipeMashCtrl',
         }
       }
-    }).state('recipeHervido', {
-      url: 'recipe/hervido',
+    }).state('tabs.recipeHervido', {
+      url: '/recipe/hervido',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-hervido.tpl.html',
@@ -103,15 +107,7 @@ var app = angular.module('ionicApp',
         }
       }
     })
-    .state('home', {
-      url: "/home",
-      views: {
-        'home-tab': {
-          templateUrl: "home.html",
-          controller: 'HomeTabCtrl'
-        }
-      }
-    }).state('timer', {
+   .state('tabs.timer', {
       url: '/timer',
       views: {
         'timer-tab': {
@@ -119,15 +115,62 @@ var app = angular.module('ionicApp',
            controller: 'timerCtrl' 
         }
       }  
-    }).state('info', {
-      url: '/info',
+    }).state('tabs.calculator', {
+      url: '/calculator',
       views: {
-        'info-tab': {
-           templateUrl: 'core/info/info.tpl.html',
-           controller: 'infoCtrl' 
+        'calculator-tab': { 
+           templateUrl: 'core/calculator/calculator-main.tpl.html',
+           controller: 'calculatorMainCtrl' 
         }
       }  
-    });
+    }).state('tabs.calculatomixr', {
+      url: '/calculator/mix',
+      views: {
+        'calculator-tab': { 
+          templateUrl: 'core/calculator/calculator-mix.tpl.html',
+           controller: 'calculatorMixCtrl' 
+        }
+      }  
+    }).state('tabs.calculatorabv', {
+      url: '/calculator/abv',
+      views: {
+        'calculator-tab': { 
+           templateUrl: 'core/calculator/calculator-abv.tpl.html',
+           controller: 'calculatorAbvCtrl' 
+        }
+      }  
+    }).state('tabs.calculatorhydro', {
+      url: '/calculator/hydro',
+      views: {
+        'calculator-tab': { 
+           templateUrl: 'core/calculator/calculator-hydro.tpl.html',
+           controller: 'calculatorHydroCtrl' 
+        }
+      }  
+    }).state('tabs.calculatorrefract', {
+      url: '/calculator/refract',
+      views: {
+        'calculator-tab': { 
+           templateUrl: 'core/calculator/calculator-refract.tpl.html',
+           controller: 'calculatorRefractCtrl' 
+        }
+      }  
+    }).state('tabs.calculatordilution', {
+      url: '/calculator/dilution',
+      views: {
+        'calculator-tab': { 
+           templateUrl: 'core/calculator/calculator-dilution.tpl.html',
+           controller: 'calculatorDilutionCtrl' 
+        }
+      }  
+    })
+.state('info', {
+      url: '/info',
+           templateUrl: 'core/info/info.tpl.html',
+           controller: 'infoCtrl' 
+       
+    })
+    ;
 
       var user = JSON.parse( window.localStorage.getItem( "user" ));
       if(user){

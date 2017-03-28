@@ -31,7 +31,6 @@ var imports = [
         "print.js",
         "calculator/calculator.js",
         "notification.js",
-        "calculator/calculator.js",
         "device/device.js",
         "resources.js",
         "util/util.js",

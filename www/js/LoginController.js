@@ -9,6 +9,8 @@
         if(user){
             $rootScope.loginSuccess = true;
             $state.go('tabs.recipe');
+        }else {
+            $state.go('login');
         }
         // retrieve it
         
@@ -19,7 +21,7 @@
         
         $scope.google_data = {}; 
         $scope.login = function() {
-            if(window.plugin){
+            if(window.plugin){ 
                 $cordovaGooglePlus.login({})
                 .then(function(data) {
                     $scope.google_data = data;

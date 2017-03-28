@@ -29,17 +29,24 @@ app.controller('RecipeDetailCtrl', function ($scope, Recipe, $stateParams,$state
                          $ionicLoading.hide();
 
                     }, function(d) {
-                            $ionicLoading.hide();
-
-                          var alertPopup = $ionicPopup.alert({
-                             title: 'Error al sincronizar',
-                             template: 'Intentelo nuevamente'
+                            $ionicLoading.hide(); 
+                             var confirmPopup = $ionicPopup.confirm({
+                                     title: "Error al descargar la receta",
+                                     template: "Desea reintentar o volver al listado?",
+                                     cancelText: "Volver",
+                                     okText:"Reintentar",
+                             })   
+                            .then(function(res) {
+                                     if(res) {  
+                                       $scope.updateRecipe();
+                                     } else {
+                                        $state.go('tabs.recipe');  
+                                     }
                            }); 
-                          $rootScope.loginSuccess = false;
-                          alertPopup.then(function(res) {
-                             $state.go('login'); 
-                           });
                          });
+    }
+    $scope.goList  = function(){
+      $state.go('tabs.recipe');  
     }
     $scope.showFermentables = function(){
        $state.go('tabs.recipeFermentables', {recipe: $scope.recipe});

@@ -1,0 +1,71 @@
+<ion-view title="Refractometro">
+<ion-content class="has-header">
+
+<div class="list">
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">DI</label></div>
+            <div class="col"> 
+                    <input type="number" step="0.001" ng-model="refractometer.OG" class="form-control input-sm"/>
+            </div>
+        </div>  
+    </div>  
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">DI Plato</label></div>
+            <div class="col"> 
+                    <input ng-blur="updateOG()" type="number" step="0.01" ng-model="refractometer.OGP" class="form-control input-sm"/>
+            </div>
+        </div>  
+    </div>  
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">DF (Medida)</label></div>
+            <div class="col"> 
+                    <input type="number" step="0.001" ng-model="refractometer.FG" class="form-control input-sm"/>
+            </div>
+        </div>  
+    </div>  
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">DF (Medida) Plato</label></div>
+            <div class="col"> 
+                    <input ng-blur="updateFG()" type="number" step="0.01" ng-model="refractometer.FGP" class="form-control input-sm"/>
+            </div>
+        </div>  
+    </div>  
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Factor de correccion</label></div>
+            <div class="col"> 
+                    <input type="number" ng-model="refractometer.correction" class="form-control input-sm"/>
+            </div>
+        </div>  
+    </div>  
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Valor</label></div>
+            <div class="col"> 
+                    <input type="text" value="{{refractometer.value|number:3}}" class="gt-calculated form-control input-sm"/>
+            </div>
+        </div>  
+    </div>   
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Valor Plato</label></div>
+            <div class="col"> 
+                    <input type="text" value="{{refractometer.valueP|number:2}}" class="gt-calculated form-control input-sm"/>
+            </div>
+        </div>  
+    </div>  
+    <div class="item item-input">
+        <div class="row">
+            <div class="col">  <label class="control-label">Alcohol</label></div>
+            <div class="col"> 
+                    <input type="text" ng-value="refractometer.ABV" class="gt-calculated form-control input-sm"/>
+            </div>
+        </div>  
+    </div>  
+</div>
+   </ion-content>
+</ion-view>

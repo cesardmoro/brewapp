@@ -20,12 +20,8 @@ var app = angular.module('ionicApp',
   $stateProvider
   .state('login', {
       url: '/login',
-      views: {
-        'login-view': {
-           templateUrl: 'core/login.tpl.html',
-           controller: 'LoginController'
-        }
-      }  
+      templateUrl: 'core/login.tpl.html',
+      controller: 'LoginController'
     }) 
    .state('tabs', {
       url: "/tab",
@@ -181,7 +177,7 @@ var app = angular.module('ionicApp',
 
 })
 
-.run(function($rootScope,$filter,$location,BrewCalc,env,color, alertFactory,BrewHelper,$templateCache, $ionicPlatform, WaterReport) {
+.run(function($rootScope,$filter,$location,BrewCalc,env,color, $ionicPopup, alertFactory,BrewHelper,$templateCache, $ionicPlatform, WaterReport) {
          $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -208,8 +204,19 @@ var app = angular.module('ionicApp',
                   });
               }; 
             }
-          });
-
+          }); 
+         $rootScope.syncError = function(title, message){
+            title = (title) ? title : "Error al sincronizar"; 
+            message = (message) ? message :  "Desea continuar sin conexion o reloguear?";
+             
+             var confirmPopup = $ionicPopup.confirm({
+               title: title,
+               template: message,
+             });  
+             return confirmPopup;
+            
+            
+         }
          //si esta logueado lo guardo en el root 
          var user = JSON.parse( window.localStorage.getItem( "user" ));
         if(user){

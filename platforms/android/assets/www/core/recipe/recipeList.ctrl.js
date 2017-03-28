@@ -7,7 +7,7 @@ app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe
         	$scope.updateRecipes();
         }else{
         	$scope.recipes = recipes;
-	        $scope.refreshRecipeDownloadDate();
+	        $scope.refreshRecipeDownloadDate(); 
         }
 	}
 	$scope.refreshRecipeDownloadDate = function(){
@@ -65,7 +65,7 @@ app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe
 	$scope.shouldShowDelete = false;
 	$scope.shouldShowReorder = false;
 	$scope.recipeClick = function(recipe){
-		$state.go('recipeEdit', {"recipeId":recipe._id});
+		$state.go('tabs.recipeEdit', {"recipeId":recipe._id});
 	}
 
 	$scope.init();//go

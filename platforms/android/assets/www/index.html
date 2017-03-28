@@ -5,7 +5,7 @@
         <link rel='stylesheet' href='/css/style.css' />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <script src="https://apis.google.com/js/client:plusone.js"></script>
+        <script src="https://apis.google.com/js/client:plusone.js"></script> 
 
         <link rel="canonical" href="http://brew-o-matic.eu01.aws.af.cm" />
 
@@ -22,6 +22,7 @@
         -->
 
         <!-- ionic/angularjs js -->
+        <script src="secrets.js"></script>
         <script src="lib/ionic/js/ionic.bundle.js"></script>
         <script src="lib/ionic-native/ionic.native.js"></script>
         <script src="lib/ionic/js/angular/angular-resource.min.js"></script>
@@ -42,44 +43,63 @@
   <body class="platform-android platform-cordova platform-webview">
     <div></div>
    
-   <ion-nav-bar class="bar-dark">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
-
-    </ion-nav-bar>
-             
-
-       <ion-nav-view ng-if="!loginSuccess" name="login-view"></ion-nav-view>
-      <ion-tabs ng-show="loginSuccess" class="tabs-icon-top tabs-dark" >
- 
-        <ion-tab title="Mis Recetas" icon="ion-ios-book" href="#/recipe">
-          <ion-nav-view name="home-tab"></ion-nav-view>
-        </ion-tab>
-
-        <ion-tab title="Alertas" icon="ion-clock" href="#/timer">
-          <ion-nav-view name="timer-tab"></ion-nav-view>
-        </ion-tab>
-
-        <ion-tab title="Info" icon="ion-information-circled" href="#/info">
-          <ion-nav-view name="info-tab"></ion-nav-view>
-        </ion-tab>
-
-      </ion-tabs>
-
-    <script id="home.html" type="text/ng-template">
-      <ion-view title="Home">
-        <ion-content>
-          <p>Example of Ionic tabs. Navigate to each tab, and
-          navigate to child views of each tab and notice how
-          each tab has its own navigation history.</p>
-          <p>
-            <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
-          </p>
-        </ion-content>
-      </ion-view>
-    </script>
-
     
+    <ion-side-menus>
+        
+        <ion-side-menu-content ng-controller="NavCtrl">
+          <ion-nav-bar class="bar-dark">
+            <ion-nav-back-button class="button-icon ion-arrow-left-c">
+            </ion-nav-back-button>
+          
+            <ion-nav-buttons side="left">
+              <button class="button button-icon button-clear ion-navicon" ng-click="showMenu()">
+              </button>
+            </ion-nav-buttons>
+
+            <ion-nav-buttons side="right">
+              <button class="button button-icon button-clear ion-ios7-gear" ng-click="showRightMenu()">
+              </button>
+            </ion-nav-buttons>
+          </ion-nav-bar>
+          <ion-nav-view animation="slide-left-right"></ion-nav-view>
+        </ion-side-menu-content> 
+        
+        <ion-side-menu side="left">
+          <ion-header-bar class="bar bar-header bar-dark">
+            <h1 class="title">Brew-o-Matic</h1>
+          </ion-header-bar>
+          <ion-content has-header="true">
+            <ul class="list">
+              <li>  <a class="item item-divider" >Recetas</a> </li>
+              <li>  <a class="item" menu-close nav-clear ui-sref="tabs.recipe">Mis Recetas</a> </li>
+              <li>  <a class="item item-divider" >Utilidades</a> </li>
+              <li> <a class="item" menu-close ui-sref="tabs.timer">Timer</a></li> 
+              <li><a class="item" menu-close ui-sref="tabs.calculator">Calculadoras</a></li>
+              <li><a class="item" menu-close ui-sref="info">Informaci&oacute;n</a></li>
+
+
+            </ul>
+          </ion-content>
+        </ion-side-menu>
+      
+        <ion-side-menu side="right">
+          <ion-header-bar class="bar bar-header bar-dark">
+            <h1 class="title">Right Menu</h1>
+          </ion-header-bar>
+          <ion-content>
+            <ul class="list">
+              <li>
+                <a class="item" menu-close nav-clear href="#/search">Search</a>
+              </li>
+              <li>
+                <a class="item" menu-close nav-clear href="#/settings">Settings</a>
+              </li>
+            </ul>
+          </ion-content>
+        </ion-side-menu>
+        
+      </ion-side-menus>
+
   </body>
 
 </html>
