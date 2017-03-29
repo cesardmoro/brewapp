@@ -36,21 +36,26 @@ app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe
 		}, function(d) {
 		  $ionicLoading.hide();
 		   var user = JSON.parse( window.localStorage.getItem( "user" ));
-		      if(user){
-			      
-				  var alertPopup = $ionicPopup.alert({
-				     title: 'Error al sincronizar',
-				     template: 'Intentelo nuevamente'
-				   }); 
-				  $rootScope.loginSuccess = false;
-				  alertPopup.then(function(res) {
-				     $state.go('login'); 
-				   });
+	      if(user){
+		     
+		    	$ionicPopup.confirm({
+                         title: "Error al descargar el listado de recetas",
+                         template: "Desea reintentar o volver al login?",
+                         cancelText: "Login",
+                         okText:"Reintentar",
+                 })   
+                .then(function(res) { 
+                         if(res) {  
+                           $scope.updateRecipes();
+                         } else {
+                            $state.go('login');  
+                         }
+               }); 
 
-		      }else{
-		       
-		       $state.go('login'); 
-		      }
+	      }else{
+	       
+	       $state.go('login'); 
+	      }
 		}); 
 
 	}
