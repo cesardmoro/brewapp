@@ -36,6 +36,31 @@ var app = angular.module('ionicApp',
            controller: 'recipeListCtrl'
         }
       }   
+    })
+    .state('tabs.colaborate', {
+      url: '/colaborate',
+      views: {
+        'home-tab': {
+           templateUrl: 'core/recipe/recipe-list.tpl.html',
+           controller: 'recipeListCtrl'
+        }
+      }   
+    }).state('tabs.favorite', {
+      url: '/favorite',
+      views: {
+        'home-tab': {
+           templateUrl: 'core/recipe/recipe-list.tpl.html',
+           controller: 'recipeListCtrl'
+        }
+      }   
+    }).state('tabs.public', {
+      url: '/public',
+      views: {
+        'home-tab': {
+           templateUrl: 'core/recipe/recipe-public-list.tpl.html',
+           controller: 'recipePublicListCtrl'
+        }
+      }   
     })//No es hijo de recipe porque si fuera asi tendria que ser una view internior por ionic
     .state('tabs.recipeEdit', {
       url: '/recipe/edit/:recipeId',

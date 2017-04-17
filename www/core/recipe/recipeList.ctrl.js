@@ -1,9 +1,18 @@
 
 app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe, BrewHelper, $state,  $ionicLoading, $ionicPopup, $rootScope) {
-  
+    $scope.title = "Mis recetas";
+
 	$scope.init = function(){
-        var recipes = JSON.parse( window.localStorage.getItem( "recipes" ));
-        if(!recipes || recipes.length ==0) {
+
+		if($state.current.name == "tabs.colaborate"){
+			 $scope.title = "Colaboraciones";
+		 	$scope.colaborate = "colaborate";
+		}else{ 
+			$scope.colaborate = "";
+		}
+
+        var recipes = JSON.parse( window.localStorage.getItem( "recipes"+$scope.colaborate ));
+        if(!recipes || recipes.length ==0) { 
         	$scope.updateRecipes();
         }else{
         	$scope.recipes = recipes;
@@ -24,12 +33,20 @@ app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe
 		}
 	}
 	$scope.updateRecipes = function(){
+		var recipePromise;
+	    if($state.current.name == "tabs.colaborate"){
+	    	 $scope.title = "Colaboraciones";
 
+	    	 recipePromise = Recipe.findCollaborated();
+	    }else{
+	    	recipePromise = Recipe.query(); 
+	    }
 		$ionicLoading.show({
 	      template: 'Descargando Listado de Recetas... <ion-spinner icon="lines"></ion-spinner>',
 	    });
-		Recipe.query().$promise.then(function(d){
-			 	window.localStorage.setItem( "recipes", JSON.stringify(d));   
+
+		recipePromise.$promise.then(function(d){
+			 	window.localStorage.setItem( "recipes"+$scope.colaborate, JSON.stringify(d));   
 			 	$scope.recipes = d;
 			 	$scope.refreshRecipeDownloadDate();
 			 	$ionicLoading.hide();

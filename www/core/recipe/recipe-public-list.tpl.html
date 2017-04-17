@@ -1,9 +1,7 @@
- <ion-view title="{{title}}">
- 
-  <ion-nav-buttons side="right">
-  <button class="button" ng-click="updateRecipes()">
-    <i class="icon ion-refresh"></i>
-  </button> 
+ <ion-view title="Recetas Publicas">
+
+<ion-nav-buttons side="right">
+
 
 </ion-nav-buttons>
    <ion-content class="has-header">
@@ -12,34 +10,34 @@
 
 
     <i class="icon ion-ios-search placeholder-icon"></i>
-    <input ng-model="search" type="search" placeholder="Buscar">
+    <input ng-model="config.searchCriteria" type="search" placeholder="Buscar">
   </label>
-  <button ng-click="search=''" class="button button-clear button-assertive">
-    Cancel
+  <button ng-click="updateRecipes(true)" class="button button-clear button-positive">
+    Buscar
     </button> 
 </div>
 <label class="item item-input item-select">
     <div class="input-label">
       Orden 
     </div>
-    <select ng-model="order" ng-init="order='-modificationDate'">
+    <select ng-model="config.sort" ng-init="config.sort='-publishDate'">
       <option value="NAME">Nombre</option> 
       <option value="-code">Código</option>
-      <option  value="-modificationDate">Fecha de modificación</option> 
-      <option value="-download_date">Fecha de descarga</option>
+      <option value="-publishDate">Fecha de publicado</option> 
     </select>
   </label>
-  <ion-list can-swipe=false ng-if="!recipes">
-      <ion-item> 
-          <a ng-click="updateRecipes()">No tienes recetas - Pulsa aqui para sincronizar</a>
+  <ion-list can-swipe=false ng-if="recipes.length == 0">
+      <ion-item>  
+          <a ng-if="!searched" ng-click="updateRecipes()">Para obtener recetas pulse buscar</a>
+          <a ng-if="searched" ng-click="updateRecipes()">No se encontraron resultados cambie los parametros de busqueda</a>
 
       </ion-item> 
   </ion-list>
-   <ion-list 
+   <ion-list  
             show-delete="shouldShowDelete"
             show-reorder="shouldShowReorder" 
-            can-swipe="false">
-    <ion-item ng-repeat="recipe in recipes | filter:search | orderBy:order " ng-click="recipeClick(recipe)">
+            can-swipe="false"> 
+    <ion-item ng-repeat="recipe in recipes " ng-click="recipeClick(recipe)">
         <div class="row">   
           <div class="col"><div class="item-name">{{recipe.NAME}}</div></div>
         </div>
@@ -88,7 +86,10 @@
                           on-reorder="reorderItem(item, $fromIndex, $toIndex)">
       </ion-reorder-button>
 
-    </ion-item>
-  </ion-list>
-  </ion-content>
+    </ion-item>  
+  </ion-list> 
+ <ion-infinite-scroll  icon="ion-loading-c" ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll> 
+
+
+ </ion-content>
 </ion-view>

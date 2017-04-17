@@ -29,6 +29,7 @@ var imports = [
                 "recipe/RecipeCtrl.js",   
                 "recipe/RecipeDetailCtrl.js", 
                 "recipe/recipeList.ctrl.js",  
+                "recipe/recipePublicList.ctrl.js",  
                 "recipe/RecipeFermentableCtrl.js", 
                 "recipe/RecipeLupuloCtrl.js",
                 "recipe/RecipeLevaduraCtrl.js", 
