@@ -13,6 +13,7 @@ var app = angular.module('ionicApp',
    'ui.bootstrap',
    'print',
    'ngCordova',
+   'ion-floating-menu'
    ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -34,6 +35,15 @@ var app = angular.module('ionicApp',
         'home-tab': {
            templateUrl: 'core/recipe/recipe-list.tpl.html',
            controller: 'recipeListCtrl'
+        }
+      }   
+    })
+    .state('tabs.newRecipe', {
+      url: '/newrecipe',
+      views: {
+        'home-tab': {
+           templateUrl: 'core/recipe/recipe-new.tpl.html',
+           controller: 'recipeNewCtrl'
         }
       }   
     })

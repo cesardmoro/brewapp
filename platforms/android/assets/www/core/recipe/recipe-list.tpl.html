@@ -1,5 +1,5 @@
- <ion-view title="Mis recetas">
-
+ <ion-view title="{{title}}">
+ 
   <ion-nav-buttons side="right">
   <button class="button" ng-click="updateRecipes()">
     <i class="icon ion-refresh"></i>
@@ -90,5 +90,7 @@
 
     </ion-item>
   </ion-list>
-  </ion-content>
+  </ion-content> 
+  <ion-floating-button ng-if="false" click="newRecipe()" has-footer="true" button-color="#387ef5" icon="ion-plus" icon-color="#fff">
+</ion-floating-button>
 </ion-view>

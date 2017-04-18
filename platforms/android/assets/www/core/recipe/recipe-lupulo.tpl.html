@@ -8,15 +8,16 @@
       <div class="item" ng-repeat="hop in recipe.HOPS.HOP">
             <div class="row">
                 <div class="col">Variedad: {{hop.NAME}}</div>
+                <div class="col">Cantidad: {{hop.AMOUNT*1000}}Grs</div>
             </div>
             <div class="row">
-				<div class="col">
-	              Tipo: {{hop.FORM}}
-	            </div>
-            	<div class="col">%AA: {{hop.ALPHA}}%</div>
+                <div class="col">
+                  Tipo: {{hop.FORM}}
+                </div>
+                <div class="col">%AA: {{hop.ALPHA}}%</div>
             </div>
 
-			<div class="row">
+            <div class="row">
             	<div class="col">Grs por Lts: {{hopGramsPerLiter(hop,recipe.BATCH_SIZE)|number:2}}Grs</div>
             	<div class="col">Porcentaje: {{hopPercentage(hop,recipe.totalHop)|number:2}}%</div>
             </div>

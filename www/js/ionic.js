@@ -37,6 +37,7 @@ var imports = [
                 "recipe/RecipeAguaCtrl.js",
                 "recipe/RecipeHervidoCtrl.js", 
                 "recipe/RecipeMashCtrl.js",
+                "recipe/RecipeNewCtrl.js", 
                 "timer/TimerCtrl.js", 
                 "info/InfoCtrl.js", 
                 "calculator/calculatorMainCtrl.js", 

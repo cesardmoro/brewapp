@@ -1,0 +1,95 @@
+ <ion-view title="Recetas Publicas">
+
+<ion-nav-buttons side="right">
+
+
+</ion-nav-buttons>
+   <ion-content class="has-header">
+   <div class="bar bar-header item-input-inset">
+  <label class="item-input-wrapper">
+
+
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input ng-model="config.searchCriteria" type="search" placeholder="Buscar">
+  </label>
+  <button ng-click="updateRecipes(true)" class="button button-clear button-positive">
+    Buscar
+    </button> 
+</div>
+<label class="item item-input item-select">
+    <div class="input-label">
+      Orden 
+    </div>
+    <select ng-model="config.sort" ng-init="config.sort='-publishDate'">
+      <option value="NAME">Nombre</option> 
+      <option value="-code">Código</option>
+      <option value="-publishDate">Fecha de publicado</option> 
+    </select>
+  </label>
+  <ion-list can-swipe=false ng-if="recipes.length == 0">
+      <ion-item>  
+          <a ng-if="!searched" ng-click="updateRecipes()">Para obtener recetas pulse buscar</a>
+          <a ng-if="searched" ng-click="updateRecipes()">No se encontraron resultados cambie los parametros de busqueda</a>
+
+      </ion-item> 
+  </ion-list>
+   <ion-list  
+            show-delete="shouldShowDelete"
+            show-reorder="shouldShowReorder" 
+            can-swipe="false"> 
+    <ion-item ng-repeat="recipe in recipes " ng-click="recipeClick(recipe)">
+        <div class="row">   
+          <div class="col"><div class="item-name">{{recipe.NAME}}</div></div>
+        </div>
+        <div class="row">   
+          <div class="col"><div class="description-item" ng-if="recipe.code"> <label>Codigo: </label><span>{{recipe.code}}</span></div></div>
+        </div> 
+       <div class="row">
+        <div class="col"> 
+          <div class="description-item">
+            <label>ABV:</label>
+            <span>{{recipe.ABV}}</span>
+          </div>
+          <div class="description-item">
+            <label>IBU:</label>
+            <span>{{recipe.CALCIBU}}</span>
+          </div>
+          <div class="description-item">
+            <label>OG:</label>
+            <span>{{recipe.OG}}</span>
+          </div>
+        </div>
+         <div class="col srm-logo"> 
+          <i style="font-size: 60px;color:{{convertColor(recipe.CALCCOLOUR)}}" class="fa fa-beer"></i>
+         </div>
+      </div> 
+        <!--div class="row">
+           <div class="col"> Estilo: {{recipe.STYLE.NAME}}</div>
+        </div--> 
+
+        <div class="row">   
+          <div class="col"><div class="download" ng-class="(recipe.download_date) ? 'positive' : 'assertive' ">{{(recipe.download_date) ? 'Ultima vez descargada: '+ (recipe.download_date| date:'dd/MM H:mm') : 'No disponible sin conexión'}}</div></div>
+        </div>
+
+      <ion-option-button class="button-positive"
+                         ng-click="share(recipes)">
+        Share
+      </ion-option-button>
+      <ion-option-button class="button-info"
+                         ng-click="edit(recipes)">
+        Edit
+      </ion-option-button>
+      <ion-delete-button class="ion-minus-circled"
+                         ng-click="recipes.splice($index, 1)">
+      </ion-delete-button>
+      <ion-reorder-button class="ion-navicon"
+                          on-reorder="reorderItem(item, $fromIndex, $toIndex)">
+      </ion-reorder-button>
+
+    </ion-item>  
+  </ion-list> 
+ <ion-infinite-scroll  icon="ion-loading-c" ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll> 
+
+
+ </ion-content>
+</ion-view>

@@ -90,5 +90,8 @@ app.controller('recipeListCtrl', function($scope, $ionicSideMenuDelegate, Recipe
 		$state.go('tabs.recipeEdit', {"recipeId":recipe._id});
 	}
 
+	$scope.newRecipe = function(){
+		$state.go('tabs.newRecipe'); 
+	}
 	$scope.init();//go
 })

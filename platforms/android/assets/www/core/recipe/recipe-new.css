@@ -1,0 +1,51 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    padding: 0;
+}
+
+.panel-body {
+    padding: 5px; 
+    width: 100%;
+}
+
+.col-xs-6 {
+    width: 100%;
+}
+
+input {
+    width: 100%;
+}
+
+input#batch_size {
+    width: 100%;
+    border-radius: 2px;
+}
+
+.input-group {
+    width: 100%;
+}
+
+.panel-heading {
+    border-radius: 0;
+    width: 100%;
+}
+
+td {}
+
+table.table.table-condensed.table-hover td {
+}
+
+table.table.table-condensed.table-hover table {
+    width: 100%;
+}
+
+table.table.table-condensed.table-hover tr {
+    width: 100%;
+    border: 1px solid #a7a7a7;
+}
+
+ul.nav.nav-tabs {background: black;} 
