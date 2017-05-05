@@ -10,12 +10,20 @@
 
 
     <i class="icon ion-ios-search placeholder-icon"></i>
-    <input ng-model="config.searchCriteria" type="search" placeholder="Buscar">
+    <input ng-model="config['filter[searchCriteria]']" type="search" placeholder="Buscar">
   </label>
-  <button ng-click="updateRecipes(true)" class="button button-clear button-positive">
+  <button ng-click="updateRecipes(1)" class="button button-clear button-positive">
     Buscar
     </button> 
 </div>
+<label class="item item-input item-select">
+    <div class="input-label">
+      Estilo 
+    </div>
+    <select ng-model="config.style" ng-options="style as style._id+' ('+style.total+')' for style in styles">
+      <option value="">Todos</option>
+    </select>
+  </label>
 <label class="item item-input item-select">
     <div class="input-label">
       Orden 
@@ -28,8 +36,8 @@
   </label>
   <ion-list can-swipe=false ng-if="recipes.length == 0">
       <ion-item>  
-          <a ng-if="!searched" ng-click="updateRecipes()">Para obtener recetas pulse buscar</a>
-          <a ng-if="searched" ng-click="updateRecipes()">No se encontraron resultados cambie los parametros de busqueda</a>
+          <a ng-if="!searched" ng-click="updateRecipes(1)">Para obtener recetas pulse buscar</a>
+          <a ng-if="searched" ng-click="updateRecipes(1)">No se encontraron resultados cambie los parametros de busqueda</a>
 
       </ion-item> 
   </ion-list>
@@ -63,12 +71,12 @@
           <i style="font-size: 60px;color:{{convertColor(recipe.CALCCOLOUR)}}" class="fa fa-beer"></i>
          </div>
       </div> 
-        <!--div class="row">
-           <div class="col"> Estilo: {{recipe.STYLE.NAME}}</div>
-        </div--> 
+        <div class="row"> 
+           <div class="col"> Estilo: <a ng-click="filterByStyle(recipe.STYLE.NAME)">{{recipe.STYLE.NAME}}</a></div>
+        </div> 
 
         <div class="row">   
-          <div class="col"><div class="download" ng-class="(recipe.download_date) ? 'positive' : 'assertive' ">{{(recipe.download_date) ? 'Ultima vez descargada: '+ (recipe.download_date| date:'dd/MM H:mm') : 'No disponible sin conexión'}}</div></div>
+          <div class="col">Cervecero: <a ng-click="filterByBrewer(recipe.BREWER)"> {{recipe.BREWER}}</a></div>
         </div>
 
       <ion-option-button class="button-positive"

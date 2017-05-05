@@ -4,57 +4,49 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {
-            "res/xml/config.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"Battery\"><param name=\"android-package\" value=\"org.apache.cordova.batterystatus.BatteryListener\" /></feature>",
-                            "count": 1
-                        }
-                    ]
-                }
-            }
-        }
+        "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
-        },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
-        },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
+        "cordova-plugin-background-mode": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         },
         "cordova-plugin-battery-status": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         },
-        "de.appplant.cordova.plugin.local-notification": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         },
-        "cordova-plugin-background-mode": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         },
         "cordova-plugin-googleplus": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-app-event": {
-            "PACKAGE_NAME": "com.ionicframework.brewapp617969"
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         }
     }
 }

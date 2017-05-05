@@ -45,6 +45,23 @@ app.controller('RecipeDetailCtrl', function ($scope, Recipe, $stateParams,$state
                            }); 
                          });
     }
+    $scope.editRecipe = function(recipe){
+        if($rootScope.checkConection()){ 
+            $scope.refresh=true; 
+            $state.go('tabs.recipeEdit', {"recipeId":recipe._id});
+        }else{
+            var confirmPopup = $ionicPopup.alert({
+                                     title: "Error Editar",
+                                     template: "Para editar la receta necesita tener conexion a internet"
+                             })   
+        }
+    }
+    $scope.$on('$ionicView.enter', function() {
+        if($scope.refresh){
+            $scope.refresh = false;
+            $scope.updateRecipe();
+        }
+    }); 
     $scope.goList  = function(){
       $state.go('tabs.recipe');  
     }

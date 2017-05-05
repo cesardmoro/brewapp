@@ -34,7 +34,7 @@ var app = angular.module('ionicApp',
       views: {
         'home-tab': {
            templateUrl: 'core/recipe/recipe-list.tpl.html',
-           controller: 'recipeListCtrl'
+           controller: 'RecipeListCtrl'
         }
       }   
     })
@@ -43,7 +43,7 @@ var app = angular.module('ionicApp',
       views: {
         'home-tab': {
            templateUrl: 'core/recipe/recipe-new.tpl.html',
-           controller: 'recipeNewCtrl'
+           controller: 'RecipeNewCtrl'
         }
       }   
     })
@@ -52,7 +52,7 @@ var app = angular.module('ionicApp',
       views: {
         'home-tab': {
            templateUrl: 'core/recipe/recipe-list.tpl.html',
-           controller: 'recipeListCtrl'
+           controller: 'RecipeListCtrl'
         }
       }   
     }).state('tabs.favorite', {
@@ -60,7 +60,7 @@ var app = angular.module('ionicApp',
       views: {
         'home-tab': {
            templateUrl: 'core/recipe/recipe-list.tpl.html',
-           controller: 'recipeListCtrl'
+           controller: 'RecipeListCtrl'
         }
       }   
     }).state('tabs.public', {
@@ -68,16 +68,24 @@ var app = angular.module('ionicApp',
       views: {
         'home-tab': {
            templateUrl: 'core/recipe/recipe-public-list.tpl.html',
-           controller: 'recipePublicListCtrl'
+           controller: 'RecipePublicListCtrl'
         }
       }   
     })//No es hijo de recipe porque si fuera asi tendria que ser una view internior por ionic
-    .state('tabs.recipeEdit', {
-      url: '/recipe/edit/:recipeId',
+    .state('tabs.recipeDetail', {
+      url: '/recipe/detail/:recipeId',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-detail.tpl.html',
           controller: 'RecipeDetailCtrl'
+        }
+      }
+    }).state('tabs.recipeEdit', {
+      url: '/recipe/edit/:recipeId',
+      views: {
+        'home-tab': {
+          templateUrl: 'core/recipe/recipe-edit.tpl.html',
+          controller: 'RecipeEdiCtrl' 
         }
       }
     }).state('tabs.recipeFermentables', {
@@ -278,7 +286,14 @@ var app = angular.module('ionicApp',
           });
         }
        
-
+        $rootScope.checkConection = function(){
+              if(window.Connection) {
+                  if(navigator.connection.type == Connection.NONE) {
+                      return false;
+                  } 
+              }  
+              return true; 
+        }
         $rootScope.getAlerts = function() {
             return alertFactory.getAlerts();
         };
@@ -307,13 +322,33 @@ var app = angular.module('ionicApp',
             return BrewHelper.round(value,100);
         };
     })
-.controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {
+.controller('NavCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, $rootScope, $state) {
+
   $scope.showMenu = function () {
     $ionicSideMenuDelegate.toggleLeft();
   };
   $scope.showRightMenu = function () {
     $ionicSideMenuDelegate.toggleRight();
   };
+  $scope.logout = function(){
+
+     var confirmPopup = $ionicPopup.confirm({
+         title: "Confirmaci&oacute;n logout",
+         template: "Esta seguro que desea desloguear su cuenta?",
+       }).then(function(res) { 
+                   if(res) {  
+                      $rootScope.loginSuccess = false;
+                      window.localStorage.clear(); 
+                       $ionicSideMenuDelegate.toggleLeft();
+                      $state.go('login');  
+                   } else {
+                       $ionicSideMenuDelegate.toggleLeft();
+                   }
+         });   
+  }
+  $rootScope.$watch('loginSuccess', function(){
+      $scope.loginSuccess = $rootScope.loginSuccess;
+  })
 })
 .controller('HomeTabCtrl', function($scope) {
 });
