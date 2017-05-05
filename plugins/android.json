@@ -42,10 +42,16 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
+        },
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.ar.brew_o_matic.brewapp"
         }
     }
