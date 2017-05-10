@@ -1,3 +1,12 @@
+function getAndroidVersion(ua) {
+    ua = (ua || navigator.userAgent).toLowerCase(); 
+    var match = ua.match(/android\s([0-9\.]*)/);
+    return match ? match[1] : false;
+};
+
+
+
+
 (function() {
     if(!googleSecrets)googleSecrets.cesarID = ""; console.log('you have to create secrets.js file');
     var index = angular.module('login',['ionic.native']);
@@ -16,10 +25,51 @@
         
     });  
  
-    index.controller("LoginController",function($scope,$rootScope,User, $cordovaGooglePlus, $state) {
+    index.controller("LoginController",function($scope,$rootScope,User, $cordovaGooglePlus, $state, $ionicPopup, $http) {
           
+        //$scope.oldlogin = (getAndroidVersion()) ? (parseFloat(getAndroidVersion())<49.3) : false;  
         
+        $scope.ifLoad=function(){
+            if($scope.oldlogin){
+                console.log('load') ;
+                document.getElementById("oldLogin").contentWindow.angular.element("#MainController").scope()
+
+
+            }
+        }
+
         $scope.google_data = {}; 
+        $scope.loginWithCode = function(){
+            var code = angular.element(codeInput).val();
+            if(code){   
+                $http({method:'GET', url:'http://brew-o-matic.com.ar/user/accessCode/'+code}).then(function(r){
+                    if(r.data.google_id){
+                        User.getByGoogleId({
+                                id:r.data.google_id,
+                                name: r.data.name
+                            },function(user){
+                                $rootScope.loginSuccess = true;
+                                $state.go('tabs.recipe')
+                                $rootScope.user = user;
+                                window.localStorage.setItem( "user", JSON.stringify(user)); 
+
+                            });
+                    }else{
+                         var confirmPopup = $ionicPopup.alert({
+                                     title: "Error Codigo",
+                                     template: "El codigo es incorrecto"
+                             })   
+                    }
+                })
+                    
+            }else{
+                 var confirmPopup = $ionicPopup.alert({
+                                     title: "Error Codigo",
+                                     template: "Ingrese un codigo"
+                             })   
+    
+            }
+        }
         $scope.login = function() {
             if(window.plugin){ 
                 $cordovaGooglePlus.login({})

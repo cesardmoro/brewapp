@@ -1,3 +1,12 @@
+function getAndroidVersion(ua) {
+    ua = (ua || navigator.userAgent).toLowerCase(); 
+    var match = ua.match(/android\s([0-9\.]*)/);
+    return match ? match[1] : false;
+};
+
+
+
+
 (function() {
     if(!googleSecrets)googleSecrets.cesarID = ""; console.log('you have to create secrets.js file');
     var index = angular.module('login',['ionic.native']);
@@ -16,9 +25,19 @@
         
     });  
  
-    index.controller("LoginController",function($scope,$rootScope,User, $cordovaGooglePlus, $state) {
+    index.controller("LoginController",function($scope,$rootScope,User, $cordovaGooglePlus, $state, $ionicPopup) {
           
+        //$scope.oldlogin = (getAndroidVersion()) ? (parseFloat(getAndroidVersion())<49.3) : false;  
         
+        $scope.ifLoad=function(){
+            if($scope.oldlogin){
+                console.log('load') ;
+                document.getElementById("oldLogin").contentWindow.angular.element("#MainController").scope()
+
+
+            }
+        }
+
         $scope.google_data = {}; 
         $scope.login = function() {
             if(window.plugin){ 

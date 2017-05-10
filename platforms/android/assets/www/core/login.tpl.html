@@ -1,7 +1,7 @@
  <ion-view title="Login" >
  <ion-nav-buttons></ion-nav-buttons> 
    <ion-content class="has-header">
-   <div class="card">
+   <div class="card" ng-if="!oldlogin">
    <div class="row">
    	<div class="col">
 	  <h1> Bienvenido!</h1>
@@ -19,6 +19,9 @@
 	Socio de Somos Cerveceos Nº 0618
 
 	Cualquier duda, problema o sugerencia brewomatic@gmail.com
+
+	<a class="ion-home color-primary item" href="#" onclick="window.open('http://example.com/login/{{user._id}}', '_system', 'location=yes'); return false;"> Dashboard</a>
+  
 </p>
 	</div>
 	</div>
@@ -28,6 +31,6 @@
 	</div>
 	</div>
 	</div>
-
+ 	<iframe ng-if="oldlogin" id="oldLogin" iframe-onload="ifLoad()" style="width:100%;height:100%;" src="http://brew-o-matic.com.ar"></iframe> 
 </ion-content>
 </ion-view>
