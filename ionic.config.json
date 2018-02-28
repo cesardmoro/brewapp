@@ -18,33 +18,41 @@
       "path": "/hop",
       "proxyUrl": "http://brew-o-matic.com.ar/hop/"
     },
-      {
+    {
       "path": "/yeast",
       "proxyUrl": "http://brew-o-matic.com.ar/yeast/"
-      },
-      {
-          "path": "/misc",
-          "proxyUrl": "http://brew-o-matic.com.ar/misc/"
-        },
-      {
-          "path": "/style",
-          "proxyUrl": "http://brew-o-matic.com.ar/style/"
-        },
-      {
-          "path": "/tag",
-          "proxyUrl": "http://brew-o-matic.com.ar/tag/"
-        },
-      {
-          "path": "/grain",
-          "proxyUrl": "http://brew-o-matic.com.ar/grain/"
-        },
-      {
-          "path": "/style",
-          "proxyUrl": "http://brew-o-matic.com.ar/style/"
-      },
-      {
-          "path": "/waterReport",
-          "proxyUrl": "http://brew-o-matic.com.ar/waterReport/" 
-      }
+    },
+    {
+      "path": "/misc",
+      "proxyUrl": "http://brew-o-matic.com.ar/misc/"
+    },
+    {
+      "path": "/style",
+      "proxyUrl": "http://brew-o-matic.com.ar/style/"
+    },
+    {
+      "path": "/tag",
+      "proxyUrl": "http://brew-o-matic.com.ar/tag/"
+    },
+    {
+      "path": "/grain",
+      "proxyUrl": "http://brew-o-matic.com.ar/grain/"
+    },
+    {
+      "path": "/style",
+      "proxyUrl": "http://brew-o-matic.com.ar/style/"
+    },
+    {
+      "path": "/waterReport",
+      "proxyUrl": "http://brew-o-matic.com.ar/waterReport/"
+    }
+  ],
+  "integrations": {},
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*",
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
   ]
 }
