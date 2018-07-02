@@ -13,7 +13,9 @@ cambios que vayan surgiendo hasta una release stable.
 5. Todas las ideas son bienvenidas, pero lo mejor es la parte de
 issues usarla para cosas graves y las ideas mandenmelas por mail! .
 
-Thanks to browserstack for supporting: 
+
 <a  href="https://www.browserstack.com" target="_blank">
   ![alt text](https://raw.githubusercontent.com/cesardmoro/brewapp/master/browserstack-logo-600x315.png)
 </a>
+
+Thanks to browserstack for supporting: 
