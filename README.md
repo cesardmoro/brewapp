@@ -15,7 +15,7 @@ issues usarla para cosas graves y las ideas mandenmelas por mail! .
 
 
 <a  href="https://www.browserstack.com">
-  ![alt text](https://raw.githubusercontent.com/cesardmoro/brewapp/master/browserstack-logo-600x315.png)
+ <img src="https://raw.githubusercontent.com/cesardmoro/brewapp/master/browserstack-logo-600x315.png"></img>
 </a>
 
 Thanks to browserstack for supporting: 
