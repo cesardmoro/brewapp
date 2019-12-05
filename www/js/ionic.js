@@ -22,26 +22,27 @@ function getScript2(src) {
  */
 var _IonicbaseDir = (_IonicbaseDir || "core") + "/";
 
-var imports = [ 
-                "common/alerts.factory.js", 
-                "common/responsive.factory.js", 
-                "ionicApp.js", 
-                "recipe/RecipeCtrl.js",   
-                "recipe/RecipeDetailCtrl.js", 
-                "recipe/RecipeListCtrl.js",  
-                "recipe/RecipePublicListCtrl.js",  
-                "recipe/RecipeFermentableCtrl.js", 
+var imports = [
+                "common/alerts.factory.js",
+                "common/responsive.factory.js",
+                "ionicApp.js",
+                "recipe/RecipeCtrl.js",
+                "recipe/RecipeDetailCtrl.js",
+                "recipe/RecipeListCtrl.js",
+                "recipe/RecipePublicListCtrl.js",
+                "recipe/RecipeFermentableCtrl.js",
                 "recipe/RecipeLupuloCtrl.js",
-                "recipe/RecipeLevaduraCtrl.js",  
+                "recipe/RecipeLevaduraCtrl.js",
                 "recipe/RecipeOtrosCtrl.js",
                 "recipe/RecipeAguaCtrl.js",
-                "recipe/RecipeHervidoCtrl.js", 
-                "recipe/RecipeMashCtrl.js", 
-                "recipe/RecipeNewCtrl.js", 
-                "recipe/RecipeEditCtrl.js", 
-                "timer/TimerCtrl.js", 
-                "info/InfoCtrl.js", 
-                "calculator/calculatorMainCtrl.js", 
+                "recipe/RecipeHervidoCtrl.js",
+                "recipe/RecipeLogCtrl.js",
+                "recipe/RecipeMashCtrl.js",
+                "recipe/RecipeNewCtrl.js",
+                "recipe/RecipeEditCtrl.js",
+                "timer/TimerCtrl.js",
+                "info/InfoCtrl.js",
+                "calculator/calculatorMainCtrl.js",
 ];
 
 for ( var i = 0; i < imports.length; i++) {

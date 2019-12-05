@@ -2,7 +2,7 @@
   <ion-nav-buttons side="right">
   <button class="button" ng-click="updateRecipe()">
    <i class="icon ion-refresh"></i>
-  </button> 
+  </button>
 </ion-nav-buttons>
 
 <ion-content class="has-header">
@@ -15,7 +15,7 @@
        </div>
         <div class="item">
              <div class="row" >
-                <div class="col"> 
+                <div class="col">
                     <strong>Color:</strong> <span title="{{error.CALCCOLOUR}}" alert-input="error.CALCCOLOUR">
                         {{recipe.CALCCOLOUR | number:1}} SRM</span>
                 </div>
@@ -28,10 +28,10 @@
         </div>
         <div class="item">
          <div class="row" >
-            <div class="col"> 
+            <div class="col">
                 <strong>OG: {{recipe.OG}}</strong>
             </div>
-            <div class="col"> 
+            <div class="col">
                     <div class="progress">
                         <div class="progress-bar progress-bar-warning"
                              role="progressbar"
@@ -48,10 +48,10 @@
         </div>
         <div class="item">
          <div class="row" >
-            <div class="col"> 
+            <div class="col">
                 <strong>FG: {{recipe.FG}}</strong>
             </div>
-            <div class="col"> 
+            <div class="col">
                     <div class="progress">
                         <div class="progress-bar progress-bar-info"
                              role="progressbar"
@@ -68,10 +68,10 @@
         </div>
         <div class="item">
          <div class="row" >
-            <div class="col"> 
+            <div class="col">
                 <strong>ABV: {{recipe.ABV}}</strong>
             </div>
-            <div class="col"> 
+            <div class="col">
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger"
                              role="progressbar"
@@ -88,10 +88,10 @@
         </div>
         <div class="item">
          <div class="row" >
-            <div class="col"> 
+            <div class="col">
                 <strong>IBU: {{recipe.CALCIBU}}</strong>
             </div>
-            <div class="col"> 
+            <div class="col">
                     <div class="progress">
                         <div class="progress-bar progress-bar-success"
                              role="progressbar"
@@ -108,10 +108,10 @@
          </div>
          <div class="item">
             <div class="row">
-              <div class="col"> 
+              <div class="col">
                 <b>Balance</b>: {{calulateBUGU(recipe.CALCIBU,recipe.OG)|number:2}}
                 </div>
-            <div class="col"> 
+            <div class="col">
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" ng-style="{width: (calulateBUGU(recipe.CALCIBU,recipe.OG)*100)+'%'}">
                         <span class="sr-only"></span>
@@ -119,14 +119,14 @@
                     <div class="progress-bar progress-bar-warning" ng-style="{width: ((1-calulateBUGU(recipe.CALCIBU,recipe.OG))*100)+'%'}">
                         <span class="sr-only"></span>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
         </div >
         <div class="item item-divider">
         Receta
        </div>
-        
+
         <a ng-click="showFermentables();" class="item">
             <div class="row">
                 <div class="col">Fermentables</div>
@@ -168,8 +168,8 @@
                 <div class="col">Hervido</div>
                 <div class="col icon "><img  class="other" src="images/boil.svg" height="30px"></div>
             </div>
-        </a> 
-         <a ui-sref="tabs.bitacora"  ng-hide=true; class="item">
+        </a>
+         <a ui-sref="tabs.bitacora({recipeId:recipe.id})"  ng-hide=true; class="item">
             <div class="row">
                 <div class="col">Bitacora</div>
                 <div class="col icon "><img  class="other" src="images/bitacora.svg" height="30px"></div>

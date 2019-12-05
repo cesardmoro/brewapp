@@ -1,6 +1,9 @@
 {
   "name": "Brew-o-matic",
-  "app_id": "",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic1",
   "proxies": [
     {
       "path": "/user",
@@ -47,8 +50,6 @@
       "proxyUrl": "http://brew-o-matic.com.ar/waterReport/"
     }
   ],
-  "integrations": {},
-  "type": "ionic1",
   "watchPatterns": [
     "scss/**/*",
     "www/**/*",

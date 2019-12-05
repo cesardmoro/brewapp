@@ -1,11 +1,11 @@
 
 
-var app = angular.module('ionicApp', 
+var app = angular.module('ionicApp',
   ['ionic',
    'login',
    'ngResource',
-   'resources', 
-   'login', 
+   'resources',
+   'login',
    'helper',
    'env',
    'alerts',
@@ -23,10 +23,10 @@ var app = angular.module('ionicApp',
       url: '/login',
       templateUrl: 'core/login.tpl.html',
       controller: 'LoginController'
-    }) 
+    })
    .state('tabs', {
       url: "/tab",
-      abstract: true, 
+      abstract: true,
       templateUrl: "core/tabs.tpl.html"
     })
     .state('tabs.recipe', {
@@ -36,7 +36,7 @@ var app = angular.module('ionicApp',
            templateUrl: 'core/recipe/recipe-list.tpl.html',
            controller: 'RecipeListCtrl'
         }
-      }   
+      }
     })
     .state('tabs.newRecipe', {
       url: '/newrecipe',
@@ -45,7 +45,7 @@ var app = angular.module('ionicApp',
            templateUrl: 'core/recipe/recipe-new.tpl.html',
            controller: 'RecipeNewCtrl'
         }
-      }   
+      }
     })
     .state('tabs.colaborate', {
       url: '/colaborate',
@@ -54,7 +54,7 @@ var app = angular.module('ionicApp',
            templateUrl: 'core/recipe/recipe-list.tpl.html',
            controller: 'RecipeListCtrl'
         }
-      }   
+      }
     }).state('tabs.favorite', {
       url: '/favorite',
       views: {
@@ -62,7 +62,7 @@ var app = angular.module('ionicApp',
            templateUrl: 'core/recipe/recipe-list.tpl.html',
            controller: 'RecipeListCtrl'
         }
-      }   
+      }
     }).state('tabs.public', {
       url: '/public',
       views: {
@@ -70,7 +70,7 @@ var app = angular.module('ionicApp',
            templateUrl: 'core/recipe/recipe-public-list.tpl.html',
            controller: 'RecipePublicListCtrl'
         }
-      }   
+      }
     })//No es hijo de recipe porque si fuera asi tendria que ser una view internior por ionic
     .state('tabs.recipeDetail', {
       url: '/recipe/detail/:recipeId',
@@ -85,7 +85,7 @@ var app = angular.module('ionicApp',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-edit.tpl.html',
-          controller: 'RecipeEdiCtrl' 
+          controller: 'RecipeEdiCtrl'
         }
       }
     }).state('tabs.recipeFermentables', {
@@ -94,7 +94,7 @@ var app = angular.module('ionicApp',
         'home-tab': {
           templateUrl: 'core/recipe/recipe-fermentable.tpl.html',
           controller: 'RecipeFermentableCtrl',
-          params: {recipe: null}, 
+          params: {recipe: null},
         }
       }
     }).state('tabs.recipeLupulo', {
@@ -130,7 +130,7 @@ var app = angular.module('ionicApp',
         }
       }
     }).state('tabs.recipeMash', {
-      url: '/recipe/mash', 
+      url: '/recipe/mash',
       views: {
         'home-tab': {
           templateUrl: 'core/recipe/recipe-mash.tpl.html',
@@ -145,69 +145,77 @@ var app = angular.module('ionicApp',
           controller: 'RecipeHervidoCtrl',
         }
       }
+    }).state('tabs.recipeLog', {
+      url: '/recipe/log/:recipeId',
+      views: {
+        'home-tab': {
+          templateUrl: 'core/recipe/recipe-log.tpl.html',
+          controller: 'RecipeLogCtrl'
+        }
+      }
     })
    .state('tabs.timer', {
       url: '/timer',
       views: {
         'timer-tab': {
            templateUrl: 'core/timer/timer.tpl.html',
-           controller: 'timerCtrl' 
+           controller: 'timerCtrl'
         }
-      }  
+      }
     }).state('tabs.calculator', {
       url: '/calculator',
       views: {
-        'calculator-tab': { 
+        'calculator-tab': {
            templateUrl: 'core/calculator/calculator-main.tpl.html',
-           controller: 'calculatorMainCtrl' 
+           controller: 'calculatorMainCtrl'
         }
-      }  
+      }
     }).state('tabs.calculatomixr', {
       url: '/calculator/mix',
       views: {
-        'calculator-tab': { 
+        'calculator-tab': {
           templateUrl: 'core/calculator/calculator-mix.tpl.html',
-           controller: 'calculatorMixCtrl' 
+           controller: 'calculatorMixCtrl'
         }
-      }  
+      }
     }).state('tabs.calculatorabv', {
       url: '/calculator/abv',
       views: {
-        'calculator-tab': { 
+        'calculator-tab': {
            templateUrl: 'core/calculator/calculator-abv.tpl.html',
-           controller: 'calculatorAbvCtrl' 
+           controller: 'calculatorAbvCtrl'
         }
-      }  
+      }
     }).state('tabs.calculatorhydro', {
       url: '/calculator/hydro',
       views: {
-        'calculator-tab': { 
+        'calculator-tab': {
            templateUrl: 'core/calculator/calculator-hydro.tpl.html',
-           controller: 'calculatorHydroCtrl' 
+           controller: 'calculatorHydroCtrl'
         }
-      }  
+      }
     }).state('tabs.calculatorrefract', {
       url: '/calculator/refract',
       views: {
-        'calculator-tab': { 
+        'calculator-tab': {
            templateUrl: 'core/calculator/calculator-refract.tpl.html',
-           controller: 'calculatorRefractCtrl' 
+           controller: 'calculatorRefractCtrl'
         }
-      }  
+      }
     }).state('tabs.calculatordilution', {
       url: '/calculator/dilution',
       views: {
-        'calculator-tab': { 
+        'calculator-tab': {
            templateUrl: 'core/calculator/calculator-dilution.tpl.html',
-           controller: 'calculatorDilutionCtrl' 
+           controller: 'calculatorDilutionCtrl'
         }
-      }  
+      }
     })
 .state('info', {
       url: '/info',
            templateUrl: 'core/info/info.tpl.html',
-           controller: 'infoCtrl' 
-       
+           controller: 'infoCtrl'
+
     })
     ;
 
@@ -220,7 +228,7 @@ var app = angular.module('ionicApp',
 
 })
 
-.run(function($rootScope,$filter,$location,BrewCalc,env,color, $ionicPopup, alertFactory,BrewHelper,$templateCache, $ionicPlatform, WaterReport) {
+.run(function($rootScope,$filter,$location,BrewCalc,env,color, $ionicPopup, alertFactory,BrewHelper,$templateCache, $ionicPlatform, WaterReport, Recipe, $ionicLoading, $stateParams) {
          $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -234,7 +242,7 @@ var app = angular.module('ionicApp',
               // org.apache.cordova.statusbar required
               StatusBar.styleDefault();
             }
-            if( window.plugin){ 
+            if( window.plugin){
 
                 window.plugin.notification.local.onadd = function (id, state, json) {
                   var notification = {
@@ -245,26 +253,26 @@ var app = angular.module('ionicApp',
                   $timeout(function() {
                       $rootScope.$broadcast("$cordovaLocalNotification:added", notification);
                   });
-              }; 
+              };
             }
-          }); 
+          });
          $rootScope.syncError = function(title, message){
-            title = (title) ? title : "Error al sincronizar"; 
+            title = (title) ? title : "Error al sincronizar";
             message = (message) ? message :  "Desea continuar sin conexion o reloguear?";
-             
+
              var confirmPopup = $ionicPopup.confirm({
                title: title,
                template: message,
-             });  
+             });
              return confirmPopup;
-            
-            
+
+
          }
-         //si esta logueado lo guardo en el root 
+         //si esta logueado lo guardo en el root
          var user = JSON.parse( window.localStorage.getItem( "user" ));
         if(user){
             $rootScope.loginSuccess = true;
-            $rootScope.user = user; 
+            $rootScope.user = user;
         }
 
         $rootScope.$templateCache = $templateCache;
@@ -282,17 +290,17 @@ var app = angular.module('ionicApp',
         var reports = JSON.parse( window.localStorage.getItem( "waterReport" ));
         if(!reports) {
           WaterReport.query(function(reports) {
-            window.localStorage.setItem( "waterReport", JSON.stringify(reports)); 
+            window.localStorage.setItem( "waterReport", JSON.stringify(reports));
           });
         }
-       
+
         $rootScope.checkConection = function(){
               if(window.Connection) {
                   if(navigator.connection.type == Connection.NONE) {
                       return false;
-                  } 
-              }  
-              return true; 
+                  }
+              }
+              return true;
         }
         $rootScope.getAlerts = function() {
             return alertFactory.getAlerts();
@@ -321,6 +329,64 @@ var app = angular.module('ionicApp',
         $rootScope.round2 = function(value) {
             return BrewHelper.round(value,100);
         };
+        $rootScope.save = function($scope) {
+          if ( !angular.isDefined($scope.recipe.NAME) ) {
+              $scope.notifications.push({
+                  type:'danger',
+                  title:'Nombre obligatorio',
+                  text:'La receta debe tener un nombre'
+              });
+              alertFactory.create('danger','El nombre debe ser obligatorio');
+          } else {
+              if (!$scope.recipe.$save) {
+                  $scope.recipe = new Recipe($scope.recipe);
+              }
+              $scope.recipe.BOIL_SIZE = $scope.BrewCalc.calculateBoilSize($scope.recipe.BATCH_SIZE, $scope.recipe.TrubChillerLosses, $scope.recipe.BOIL_TIME, $scope.recipe.PercentEvap, $scope.recipe.TopUpWater);
+
+              $scope.saving = true;
+              $scope.recipe.$save(function(saved){
+                  $scope.saving = false;
+                  $rootScope.updateRecipe($scope);
+
+              },function(error) {
+              });
+          }
+      };
+      $rootScope.updateRecipe = function($scope){
+        $ionicLoading.show({
+          template: 'Descargando Receta... <ion-spinner icon="lines"></ion-spinner>',
+        });
+
+        $scope.recipe = Recipe.get({id:$stateParams.recipeId},function() {
+
+                        //Verifico si realmente existe la receta que buscaba
+                        if ( $scope.recipe._id ) {
+                                $rootScope.recipe = $scope.recipe;
+                                $scope.recipe.download_date = new Date();
+                                window.localStorage.setItem( "recipe-"+$scope.recipe._id, JSON.stringify($scope.recipe));
+                        } else {
+                            $scope.errorLoading = true;
+                            alertFactory.create('danger','La receta que intentas abrir no existe');
+                        }
+                         $ionicLoading.hide();
+
+                    }, function(d) {
+                            $ionicLoading.hide();
+                             var confirmPopup = $ionicPopup.confirm({
+                                     title: "Error al descargar la receta",
+                                     template: "Desea reintentar o volver al listado?",
+                                     cancelText: "Volver",
+                                     okText:"Reintentar",
+                             })
+                            .then(function(res) {
+                                     if(res) {
+                                       $rootScope.updateRecipe();
+                                     } else {
+                                        $state.go('tabs.recipe');
+                                     }
+                           });
+                         });
+    }
     })
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, $rootScope, $state) {
 
@@ -335,16 +401,16 @@ var app = angular.module('ionicApp',
      var confirmPopup = $ionicPopup.confirm({
          title: "Confirmaci&oacute;n logout",
          template: "Esta seguro que desea desloguear su cuenta?",
-       }).then(function(res) { 
-                   if(res) {  
+       }).then(function(res) {
+                   if(res) {
                       $rootScope.loginSuccess = false;
-                      window.localStorage.clear(); 
+                      window.localStorage.clear();
                        $ionicSideMenuDelegate.toggleLeft();
-                      $state.go('login');  
+                      $state.go('login');
                    } else {
                        $ionicSideMenuDelegate.toggleLeft();
                    }
-         });   
+         });
   }
   $rootScope.$watch('loginSuccess', function(){
       $scope.loginSuccess = $rootScope.loginSuccess;

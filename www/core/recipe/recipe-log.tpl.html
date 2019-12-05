@@ -1,0 +1,199 @@
+<ion-view title="{{recipe.NAME}}">
+  <ion-nav-buttons side="right">
+  <button class="button" ng-click="updateRecipe()">
+   <i class="icon ion-refresh"></i>
+  </button>
+</ion-nav-buttons>
+
+<ion-content class="has-header">
+<div class="col-md-12">
+  <div class="col-md-10">
+      <div class="panel panel-default">
+          <div class="panel-body" >
+              <div class="row" style="width: 100%;margin-bottom: 1em">
+                  <button style="margin-left: 1em" ng-click="restoreAll()" type="button" class="button button-positive  pull-right">
+                      <span>Restaurar todo</span>
+                  </button>
+                  <button style="margin-left: 1em" ng-click="toogleRemovedFilter()" type="button" class="button button-positive  pull-right">
+                      <span ng-show="isFiltering">Ver eliminados</span>
+                      <span ng-hide="isFiltering">Ocultar eliminados</span>
+                  </button>
+              </div>
+
+                <ion-list
+                show-delete="true"
+                show-reorder="true"
+                can-swipe="true">
+                  <ion-item ng-repeat="log in recipe.log.logs | orderBy:orderLog | filter:discardFilter" ng-class="{'gt-log-active': edit == log,'gt-log-removed': log.discard }"
+                            class="item">
+
+                    <h2>  {{log.time|formatDate}}</h2>
+                    <p> {{log.detail}}</p>
+                    <ion-option-button class="button-positive"
+                    ng-disabled="edit==log || log.discard" ng-click="goEdit(log)" type="button" class="button ion-edit button-positive " title="Editar entrada">
+
+                    </ion-option-button>
+                    <ion-option-button ng-disabled="edit==log || log.discard" ng-click="restore(log)" type="button" class="button button-positive ion-arrow-up-c" title="Descarta la entrada y la pasa a la lista de disponibles (abajo)">
+                    </ion-option-button>
+                    <ion-delete-button class="ion-minus-circled"
+                    ng-disabled="edit==log" ng-hide="log.discard" ng-click="discard(log)" >
+                    </ion-delete-button>
+                    <ion-reorder-button ng-show="log.discard" ng-click="log.discard=false" type="button" class="button button-positive ion-arrow-return-left" title="Restaura entrada eliminada de la bitacora" >
+                    </ion-reorder-button>
+                  </ion-item>
+                  <ion-item  ng-repeat="log in pendingLogs" ng-class="{'gt-log-active': edit == log,'gt-log-removed': log.discard }"
+                            class="item">
+
+                    <h2>   {{log.time()|formatDate}}</h2>
+                    <p>
+                        {{log.detail}}</p>
+                    <ion-option-button class="button-positive"
+                    ng-disabled="edit==log || log.discard" ng-click="goEdit(log)" type="button" class="button ion-edit button-positive " title="Editar entrada">
+
+                    </ion-option-button>
+                    <ion-option-button ng-disabled="edit==log || log.discard" ng-click="restore(log)" type="button" class="button button-positive ion-arrow-up-c" title="Descarta la entrada y la pasa a la lista de disponibles (abajo)">
+                    </ion-option-button>
+                    <ion-delete-button class="ion-minus-circled"
+                    ng-disabled="edit==log" ng-hide="log.discard" ng-click="discard(log)" >
+                    </ion-delete-button>
+                    <ion-reorder-button ng-show="log.discard" ng-click="log.discard=false" type="button" class="button button-positive ion-arrow-return-left" title="Restaura entrada eliminada de la bitacora" >
+                    </ion-reorder-button>
+                  </ion-item>
+                </ion-list>
+              <ul class="list" can-swipe="true">
+                  <div class="item item-divider">
+                     Bitacora:
+                    </div>
+
+                  <li class="item item-button-right " ng-repeat="log in recipe.log.logs | orderBy:orderLog | filter:discardFilter" ng-class="{'gt-log-active': edit == log,'gt-log-removed': log.discard }">
+                      {{log.time|formatDate}}
+                      {{log.detail}}
+
+                          <button ng-show="log.discard" ng-click="log.discard=false" type="button" class="button button-positive ion-arrow-return-left" title="Restaura entrada eliminada de la bitacora">
+                          </button>
+
+                  </li>
+                  <div class="item item-divider">
+                     Pendientes:
+                    </div>
+
+                  <li class="item item-button-right" ng-repeat="log in pendingLogs">
+                      {{log.time|formatDate}}
+                      {{log.detail}}
+                      <button ng-click="push(log)" type="button" class="button button-positive ion-arrow-up-c " title="Pasa la entrada directamente a la bitacora">
+                        </button>
+                      <button ng-click="pushAndEdit(log)" type="button" class="button button-positive ion-edit" title="Pasa la entrada a la bitacora y la deja abierta para edicion">
+                                                </button>
+                      <button ng-click="pushAndDiscard(log)" type="button" class="button button-positive ion-trash-b" title="Descarta la entrada y elimina permanentemente">
+                                                </button>
+                  </li>
+              </ul>
+              <table class="table table-condensed table-hover">
+                  <thead>
+                    <tr>
+                      <th style="width: 16em">Fecha y Hora</th>
+                      <th>Detalle</th>
+                      <th style="width:2%"></th>
+                      <th style="width:2%"></th>
+                      <th style="width:2%"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="log in recipe.log.logs | orderBy:orderLog | filter:discardFilter" ng-class="{'gt-log-active': edit == log,'gt-log-removed': log.discard }">
+                      <td title="{{log.time|date:'dd/MM/yyyy HH:mm'}}">
+                          {{log.time|formatDate}}
+                      </td>
+                      <td>{{log.detail}}</td>
+                      <td>
+                          <button ng-disabled="edit==log || log.discard" ng-click="goEdit(log)" type="button" class="button ion-edit button-positive " title="Editar entrada">
+                          </button>
+                      </td>
+                      <td>
+                          <button ng-disabled="edit==log || log.discard" ng-click="restore(log)" type="button" class="button button-positive ion-arrow-up-c" title="Descarta la entrada y la pasa a la lista de disponibles (abajo)">
+                          </button>
+                      </td>
+                      <td>
+                          <button ng-disabled="edit==log" ng-hide="log.discard" ng-click="discard(log)" type="button" class="button button-positive ion-trash-b" title="Descarta la entrada y elimina permanentemente">
+                          </button>
+                          <button ng-show="log.discard" ng-click="log.discard=false" type="button" class="button button-positive ion-arrow-return-left" title="Restaura entrada eliminada de la bitacora">
+                          </button>
+                      </td>
+                    </tr>
+                  </tbody>
+              </table>
+
+
+              <div class="col-xs-12">
+              <table class="table table-condensed table-hover" ng-show="recipe.FERMENTABLES.FERMENTABLE.length != 0" style="margin-top: 1em;">
+                  <thead>
+                    <tr>
+                      <th style="width: 16em">Fecha y Hora estimada</th>
+                      <th>Detalle Sugerido</th>
+                      <th style="width:2%"></th>
+                      <th style="width:2%"></th>
+                      <th style="width:2%"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="log in pendingLogs">
+                      <td title="{{log.time()|date:'dd/MM/yyyy HH:mm'}}">
+                          {{log.time()|formatDate}}
+                      </td>
+                      <td>{{log.detail}}</td>
+                      <td>
+                          <button ng-click="push(log)" type="button" class="button button-positive ion-arrow-up-c " title="Pasa la entrada directamente a la bitacora">
+                          </button>
+                      </td>
+                      <td>
+                          <button ng-click="pushAndEdit(log)" type="button" class="button button-positive ion-edit" title="Pasa la entrada a la bitacora y la deja abierta para edicion">
+                          </button>
+                      </td>
+                      <td>
+                          <button ng-click="pushAndDiscard(log)" type="button" class="button button-positive ion-trash-b" title="Descarta la entrada y elimina permanentemente">
+                          </button>
+                      </td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+      <div style="overflow: hidden;margin-bottom: 1em;">
+
+          <div class="pull-right">
+              <button ng-click="save()" type="button" class="btn btn-primary">Guardar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+</ion-content>
+</ion-view>
+<div  ng-show="edit" class="popup">
+    <div class="card">
+      <div class="item item-text-wrap">
+          <h2>Editar bitacora:</h2>
+          <label class="item item-input">
+            <textarea rows="3" id="detail" placeholder="(Detalle)" ng-model="edit.detail" ></textarea>
+          </label>
+          <label class="item item-input">
+            Fecha:
+                <input type="date" ng-model="edit.time" is-open="opened" />
+          </label>
+          <label class="item item-input">Hora:</label>
+                <div ng-model="edit.time" >
+                    <timepicker hour-step="1" readonly-input="false" minute-step="1" show-meridian="false"></timepicker>
+                </div>
+
+
+        </div>
+    <div class="col-xs-9">
+
+        <button ng-click="goEdit(null)" type="button" class="button button-light pull-right" style="margin-top:0.5em">Guardar</button>
+    </div>
+    </div>
+</div>
+<ion-floating-button  ng-click="goNew()"  href="" has-footer="true" button-color="#387ef5" icon="ion-plus" icon-color="#fff">
+  </ion-floating-button>
+
+
