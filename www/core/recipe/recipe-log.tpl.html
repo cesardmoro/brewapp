@@ -1,0 +1,99 @@
+<ion-view title="{{recipe.NAME}}">
+  <ion-nav-buttons side="right">
+  <button class="button" ng-click="save()">
+   <i class="icon ion-delete"></i>
+  </button>
+</ion-nav-buttons>
+
+<ion-content class="has-header">
+<div class="col-md-12">
+  <div class="col-md-10">
+      <div class="panel panel-default">
+          <div class="panel-body" >
+            <div class="row">
+
+              <h1 class="row-d">Bitacora <button ng-click="deleteToggle()" class="button button-positive  pull-right" ng-class="{'ion-trash-a' : !activateDelete, 'ion-close': activateDelete}"></button></h1>
+            </div>
+                <ion-list show-delete="activateDelete">
+                <ion-item class="item item-divider">
+                    Realizados:
+                   </ion-item>
+
+                  <ion-item ng-repeat="log in recipe.log.logs | orderBy:orderLog | filter:discardFilter" ng-class="{'gt-log-active': edit == log,'gt-log-removed': log.discard }"
+                            class="item">
+                    <h2>{{log.time|formatDate}} </h2>
+                    <div class="custom-with-buttons"> {{log.detail}}
+                      <div class="custom-buttons-right">
+                        <button ng-disabled="edit==log || log.discard" ng-click="goEdit(log)" type="button" class="button ion-edit button-positive pull-right" title="Editar entrada">
+                      </button>
+                      <button ng-disabled="edit==log || log.discard" ng-click="restore(log)" type="button" class="button button-positive ion-arrow-down-c  pull-right" title="Descarta la entrada y la pasa a la lista de disponibles (abajo)">
+                      </button>
+                      </div>
+                    </div>
+
+                    <ion-delete-button class="ion-minus-circled"
+                    ng-disabled="edit==log" ng-hide="log.discard" ng-click="discard(log)" >
+                    </ion-delete-button>
+                  </ion-item>
+
+                  <ion-item class="item item-divider">
+                      Pendientes:
+                  </ion-item>
+
+                  <ion-item  ng-repeat="log in pendingLogs" ng-class="{'gt-log-active': edit == log,'gt-log-removed': log.discard }" class="item">
+                    <h2>{{log.time()|formatDate}}</h2>
+                    <p class="custom-with-buttons">{{log.detail}}
+                      <div class="custom-buttons-right"><button ng-click="push(log)" type="button" class="button button-positive ion-arrow-up-c pull-right" title="Pasa la entrada directamente a la bitacora">
+                      </button>
+                    </div>
+                    </p>
+                    <ion-delete-button class="ion-minus-circled"
+                    ng-disabled="edit==log" ng-hide="log.discard" ng-click="discard(log)" >
+                    </ion-delete-button>
+
+                    </ion-item>
+                </ion-list>
+
+            </div>
+          </div>
+      </div>
+        <div class="row" style="display:block;">
+              <button ng-click="save()" type="button" class="button button-positive">Guardar</button>
+        </div>
+  </div>
+</div>
+
+</ion-content>
+</ion-view>
+<div  ng-show="edit" class="popup">
+    <div class="card">
+      <div class="item item-text-wrap">
+          <h2>Editar bitacora:</h2>
+          <label class="item item-input">
+            <textarea rows="3" id="detail" placeholder="(Detalle)" ng-model="edit.detail" ></textarea>
+          </label>
+          <label class="item item-input">
+            Fecha:
+                <input type="date" ng-model="edit.time" is-open="opened" />
+          </label>
+          <label class="item item-input">Hora:</label>
+                <div ng-model="edit.time" >
+                    <timepicker hour-step="1" readonly-input="false" minute-step="1" show-meridian="false"></timepicker>
+                </div>
+
+
+        </div>
+    <div class="col-xs-9">
+
+        <button ng-click="goEdit(null)" type="button" class="button button-light pull-right" style="margin-top:0.5em">Guardar</button>
+    </div>
+    </div>
+</div>
+<ion-floating-menu>
+    <ion-floating-item menu-icon-color="387ef5" ng-click="goNew()"  text="Nuevo"  href="" has-footer="true" button-color="#387ef5" icon="ion-plus" icon-color="#fff"></ion-floating-item>
+    <ion-floating-item icon="ion-trash-a" text="Eliminar" click="deleteToggle()" ng-class="" button-color="red"></ion-floating-item>
+    <ion-floating-item icon="ion-cloud"  text="Guardar" click="save()" ng-class="" button-color="green"></ion-floating-item>
+</ion-floating-menu>
+
+
+
