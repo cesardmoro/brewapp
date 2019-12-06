@@ -7,47 +7,47 @@
   "proxies": [
     {
       "path": "/user",
-      "proxyUrl": "http://brew-o-matic.com.ar/user/"
+      "proxyUrl": "https://brew-o-matic.com.ar/user/"
     },
     {
       "path": "/recipe",
-      "proxyUrl": "http://brew-o-matic.com.ar/recipe/"
+      "proxyUrl": "https://brew-o-matic.com.ar/recipe/"
     },
     {
       "path": "/notification",
-      "proxyUrl": "http://brew-o-matic.com.ar/notification/"
+      "proxyUrl": "https://brew-o-matic.com.ar/notification/"
     },
     {
       "path": "/hop",
-      "proxyUrl": "http://brew-o-matic.com.ar/hop/"
+      "proxyUrl": "https://brew-o-matic.com.ar/hop/"
     },
     {
       "path": "/yeast",
-      "proxyUrl": "http://brew-o-matic.com.ar/yeast/"
+      "proxyUrl": "https://brew-o-matic.com.ar/yeast/"
     },
     {
       "path": "/misc",
-      "proxyUrl": "http://brew-o-matic.com.ar/misc/"
+      "proxyUrl": "https://brew-o-matic.com.ar/misc/"
     },
     {
       "path": "/style",
-      "proxyUrl": "http://brew-o-matic.com.ar/style/"
+      "proxyUrl": "https://brew-o-matic.com.ar/style/"
     },
     {
       "path": "/tag",
-      "proxyUrl": "http://brew-o-matic.com.ar/tag/"
+      "proxyUrl": "https://brew-o-matic.com.ar/tag/"
     },
     {
       "path": "/grain",
-      "proxyUrl": "http://brew-o-matic.com.ar/grain/"
+      "proxyUrl": "https://brew-o-matic.com.ar/grain/"
     },
     {
       "path": "/style",
-      "proxyUrl": "http://brew-o-matic.com.ar/style/"
+      "proxyUrl": "https://brew-o-matic.com.ar/style/"
     },
     {
       "path": "/waterReport",
-      "proxyUrl": "http://brew-o-matic.com.ar/waterReport/"
+      "proxyUrl": "https://brew-o-matic.com.ar/waterReport/"
     }
   ],
   "watchPatterns": [

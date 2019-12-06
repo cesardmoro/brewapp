@@ -1,7 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
-    <description>An awesome Ionic/Cordova app.</description>
+<widget id="com.ar.brew_o_matic.brewapp" version="1.014001" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Brew-o-matic</name>
+    <description>
+    </description>
+    <author email="cesar.d.moro@gmail.com" href="http://brew-o-matic.com.ar/">
+      Cesar Daniel Moro
+    </author>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -99,4 +103,10 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <allow-navigation href="http://www.brew-o-matic.com.ar/*" />
+    <allow-navigation href="https://www.brew-o-matic.com.ar/*" />
+    <icon src="resources\android\icon\drawable-xhdpi-icon.png" />
+    <plugin name="cordova-plugin-googleplus" spec="https://github.com/EddyVerbruggen/cordova-plugin-googleplus">
+        <variable name="REVERSED_CLIENT_ID" value="1023762673194-gq1vqpbfp4u0o6s0l76a237jrprpofuh.apps.googleusercontent.com" />
+    </plugin>
 </widget>
